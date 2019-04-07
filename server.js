@@ -1,7 +1,8 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
-const db = require("./models");
-const routes = require("./controllers")
+const db = require("./app/models");
+const routes = require("./app/controllers");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 1234;
@@ -11,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //serves static versions of css & js so we can store as seperate files
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname + "app/public")));
 
 //sets up handlebars
 app.engine("handlebars", handlebars({ defaultLayout: "main"}));
