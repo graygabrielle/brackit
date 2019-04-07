@@ -1,2 +1,2 @@
 # brack[it]
-travel prep web app
+bracket-based decision making tool
