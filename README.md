@@ -1,2 +1,2 @@
-# wanderoo
-travel prep web app
+# brack[it]
+bracket-based decision making tool
