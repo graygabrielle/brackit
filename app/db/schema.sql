@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS database_development;
+DROP DATABASE IF EXISTS brackit_db;
 
-CREATE DATABASE database_development;
+CREATE DATABASE brackit_db;
