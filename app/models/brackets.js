@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         numberCandidates: {
             type: DataTypes.INTEGER,
             allowNull: true
-        },
+        }
     })
 
     Bracket.associate = function(models) {
