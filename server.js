@@ -21,6 +21,8 @@ app.set("view engine", "handlebars");
 //points app to routes
 app.use(routes);
 
+console.log(`log base 2 of 4 is ${Math.log(4, 2)}`);
+
 //syncs with sequelize/database and runs server
 db.sequelize.sync({force: true}).then(function() {
     app.listen(PORT, function() {
