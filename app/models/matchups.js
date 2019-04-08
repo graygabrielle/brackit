@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    let Matchup = sequelize.define("Matchup", {
+    const Matchup = sequelize.define("Matchup", {
         roundNumber: {
             type: DataTypes.INTEGER,
             allowNull: false

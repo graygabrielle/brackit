@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    let User = sequelize.define("User", {
+    const User = sequelize.define("User", {
         isAdmin: {
             type: DataTypes.BOOLEAN,
             allowNull: false

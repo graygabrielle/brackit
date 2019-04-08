@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    let Vote = sequelize.define("Vote", {
+    const Vote = sequelize.define("Vote", {
         roundNumber: {
             type: DataTypes.INTEGER,
             allowNull: false
