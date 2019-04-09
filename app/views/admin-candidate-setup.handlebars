@@ -1,0 +1,15 @@
+{{>header}}
+
+<section>
+    {{!-- drop candidates into here when added --}}
+    <div class="candidates">
+
+    </div>
+    <input type="text" name="new-cand" id="new-cand" placeholder="add an option" required>
+    {{!-- this add button would become hidden and be replaced with submit button when correct number of candidates has been added --}}
+    <button class="visible" data-cand-num="{{numberCandidates}}" id="add-cand">add option</button>
+    {{!-- this submit button would be hidden until the correct number of candidates has been added --}}
+    <button data-brack-num={{id}} class="invisible" id="submit">submit all</button>
+
+</section>
+
