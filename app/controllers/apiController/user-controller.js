@@ -3,14 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 // Import the model (user.js) to use its database functions.
-const User = require("../../models/users");
+const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
 
 router.post("/admin", async function(req, res) {
   try {
     const user = await req.body;
-    User.create({
+    db.User.create({
       displayName: user.name,     
     });
     res.json(user);

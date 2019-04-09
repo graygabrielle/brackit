@@ -5,19 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Bracket-based decision making tool">
+    <meta name="author" content="Ben Waller, Cameron MacCabe, Eliza Drinker, Gray Atkinson-Adams">
+
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
     <title>brack[it]</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body>
 
     {{{ body }}}
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script> const socket = io(); </script>
+    <script>
+        let bracketId = 5;
+        let name = "Justina";
+        let socket = io();
+        socket.emit('bracketID', bracketId, name);
+
+        socket.on('new join', (name) => {
+            console.log(`${name} just joined!`);
+            //add name to screen
+        })
+
+        socket.on('user left', (name) => {
+            console.log(`${name} has left the room.`);
+            //delete name from screen
+        })
+        socket.on('error', (err) => {
+            console.log("Error connecting to room. Please wait for admin to enter.")
+        });
+
+
+    </script>
     <script src="/js/app.js"></script>
 
 </body>

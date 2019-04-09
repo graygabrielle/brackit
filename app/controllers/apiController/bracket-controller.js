@@ -3,14 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 // Import the model (bracket.js) to use its database functions.
-const Bracket = require("../../models/brackets");
+const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
 
 router.post("/admin", async function(req, res) {
   try {
     const newBracket = await req.body;
-    Bracket.create({
+    db.Bracket.create({
       name: newBracket.bracketName,
       numberCandidates: newBracket.numberCandidates
     });
