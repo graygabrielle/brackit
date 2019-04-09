@@ -2,20 +2,37 @@ const express = require("express");
 
 const router = express.Router();
 
-// Import the model (bracket.js) to use its database functions.
-const Bracket = require("../../models/brackets");
+router.use(express.urlencoded({extended: true}));
+
+// Import the model (brackets.js) to use its database functions.
+const Brackit = require("../../models/brackets");
 
 // Create all our routes and set up logic within those routes where required.
 
-router.post("/admin", async function(req, res) {
+router.post("/api/brackits", async function(req, res) {
   try {
-    const newBracket = await req.body;
-    Bracket.create({
-      name: newBracket.bracketName,
-      numberCandidates: newBracket.numberCandidates
+    const newBrackit = await req.body;
+    Brackit.create({
+      name: newBrackit.name,
+      numberCandidates: newBrackit.numberCandidates,
+      AdminId: newBrackit.AdminId
+    }).then(function(response) {
+      res.render("admin-candidate-setup", response);
     });
-    res.json(newBracket);
-    res.render('admin-candidate-setup', {})
+  } catch(e) {
+    res.send(e);
+  }
+});
+
+router.get("/api/brackits/:brackitID", async function(req, res) {
+  try {
+    Brackit.findOne({
+      where: {
+        id: req.params.brackitID
+      }
+    }).then(function(response) {
+      res.json(response);
+    });
   } catch(e) {
     res.send(e);
   }
