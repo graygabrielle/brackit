@@ -15,6 +15,7 @@ router.post("/admin", async function(req, res) {
       numberCandidates: newBracket.numberCandidates
     });
     res.json(newBracket);
+    res.render('admin-candidate-setup', {})
   } catch(e) {
     res.send(e);
   }
