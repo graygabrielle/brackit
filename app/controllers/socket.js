@@ -7,8 +7,8 @@ module.exports = function(io) {
         let roomId;
 
         socket.on('bracketID', (bracketId, name) => {
-            let roomId = bracketId;
-            let userName = name;
+            roomId = bracketId;
+            userName = name;
             socket.join(roomId);
             console.log(`Joined socket : ${roomId}`)
             io.in(roomId).emit('new join', userName);
