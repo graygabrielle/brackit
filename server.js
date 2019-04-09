@@ -33,6 +33,7 @@ io.on("connection", function(socket) {
     })
 })
 
+
 //syncs with sequelize/database and runs server
 db.sequelize.sync({force: true}).then(function() {
     http.listen(PORT, function() {
