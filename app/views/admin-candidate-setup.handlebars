@@ -1,1 +1,13 @@
 {{>header}}
+
+<section>
+    {{!-- drop candidates into here when added --}}
+    <div class="candidates">
+
+    </div>
+    <input type="text" name="new-cand" id="new-cand" placeholder="add an option" required>
+    {{!-- this add button would become hidden and be replaced with submit button when correct number of candidates has been added --}}
+    <button id="add-cand">add option</button>
+    {{!-- this submit button would be hidden until the correct number of candidates has been added --}}
+    <button id="submit">submit all</button>
+</section>
