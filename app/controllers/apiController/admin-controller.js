@@ -1,18 +1,12 @@
-const express = require("express");
-
-const router = express.Router();
-
-router.use(express.urlencoded({extended: true}));
-
-// Import the model (brackets.js) to use its database functions.
-const Admin = require("../../models/admins");
+const router = require("express").Router();
+const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
 
-router.post("/api/admins", async function(req, res) {
+router.post("/admins", async function(req, res) {
   try {
     const newAdmin = await req.body;
-    Admin.create({
+    db.Admin.create({
       displayName: newAdmin.displayName,
     }).then(function(response) {
       res.json(response);
@@ -22,7 +16,7 @@ router.post("/api/admins", async function(req, res) {
   }
 });
 
-router.get("/api/admins/:adminCode/:brackitID", function(req, res) {
+router.get("/admins/:adminCode/:brackitID", function(req, res) {
   try {
     const adminCode = req.params.adminCode;
     const brackitID = req.params.brackitID;
