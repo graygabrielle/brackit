@@ -19,6 +19,8 @@ app.use(express.static(path.join(__dirname, "app/public")));
 //sets up handlebars
 app.engine("handlebars", handlebars({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
+//sets view folder for handlebars
+app.set("views", path.join(__dirname, "app/views"));
 
 //sets view folder for handlebars
 app.set("views", path.join(__dirname, "app/views"));
@@ -32,7 +34,6 @@ io.on("connection", function(socket) {
         console.log("A user has disconnected.");
     })
 })
-
 
 //syncs with sequelize/database and runs server
 db.sequelize.sync({force: true}).then(function() {
