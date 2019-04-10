@@ -9,12 +9,11 @@ const db = require("../../models");
 
 router.post("/admin", async function(req, res) {
   try {
-    const user = await req.body;
-    db.User.create({
-      displayName: user.name,     
-    });
+    const user = await db.User.create({
+      displayName: req.body.name 
+    });  
     res.json(user);
-  } catch(e) {
+  } catch {
     res.send(e);
   }
 });
