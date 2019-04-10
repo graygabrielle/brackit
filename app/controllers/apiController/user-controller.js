@@ -7,13 +7,16 @@ const User = require("../../models/users");
 
 // Create all our routes and set up logic within those routes where required.
 
-router.post("/admin", async function(req, res) {
+router.post("/api/users", async function(req, res) {
   try {
-    const user = await req.body;
-    User.create({
-      displayName: user.name,     
+    const newUser = await req.body;
+    db.User.create({
+      displayName: newUser.name,
+      isAdmin: true,
+      
+    }).then(function(response) {
+      res.json(response);
     });
-    res.json(user);
   } catch(e) {
     res.send(e);
   }

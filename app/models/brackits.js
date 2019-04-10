@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    const Bracket = sequelize.define("Bracket", {
+    const Brackit = sequelize.define("Brackit", {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -13,23 +13,23 @@ module.exports = function(sequelize, DataTypes) {
         }
     })
 
-    Bracket.associate = function(models) {
+    Brackit.associate = function(models) {
 
-        Bracket.belongsTo(models.Admin, {
+        Brackit.belongsTo(models.Admin, {
             foreignKey: {
               allowNull: false
             }
           });
 
 
-        Bracket.hasMany(models.User, {
+        Brackit.hasMany(models.User, {
             onDelete: "cascade"
         });
         
-        Bracket.hasMany(models.Candidate, {
+        Brackit.hasMany(models.Candidate, {
             onDelete: "cascade"
         })
     }
 
-    return Bracket;
+    return Brackit;
 }

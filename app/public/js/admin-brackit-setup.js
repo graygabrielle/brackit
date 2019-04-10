@@ -11,13 +11,15 @@ $(document).ready(function() {
       displayName: $("#admin-name").val().trim()
     };
 
-    const numberCandidates = parseInt($("#num-of-cand").val());
+    const numberCandidates = parseInt($("input[name='num-of-cand']:checked").val());
+    console.log(numberCandidates);
 
     // Post the new admin
     $.post("/api/admins", newAdmin)
       // On success, run the following code
       .then(function(data) {
         const AdminId = data.id;
+        console.log("AdminId:", AdminId);
         // Make a newBrackit object
         const newBrackit = {
           name: $("#brack-name").val().trim(),
@@ -25,7 +27,24 @@ $(document).ready(function() {
           AdminId: AdminId
         };
         // Post the new brackit
-        $.post("/api/brackits", newBrackit);
+        $.post("/api/brackits", newBrackit)
+          .then(function(data) {
+            console.log("Data:", data);
+            const BrackitId = data.id;
+            console.log("BrackitId:", BrackitId);
+            const newUser = {
+              BrackitId: BrackitId,
+              isAdmin: true,
+              displayName: newAdmin.displayName
+            };
+            console.log("newUser:", newUser);
+            // Post the admin as a new user
+            $.post("/api/users", newUser)
+              .then(function(data) {
+                console.log("/api/users data:", data);
+              });
+          });
+        
           // On success, run the following code
         //  .then(function(data) {
         //    const brackitID = data.id;

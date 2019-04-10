@@ -28,12 +28,12 @@ app.set("views", path.join(__dirname, "app/views"));
 //points app to routes
 app.use(routes);
 
-io.on("connection", function(socket) {
-    console.log("User connected to socket.");
-    socket.on("disconnect", function() {
-        console.log("A user has disconnected.");
-    })
-})
+// io.on("connection", function(socket) {
+//     console.log("User connected to socket.");
+//     socket.on("disconnect", function() {
+//         console.log("A user has disconnected.");
+//     })
+// })
 
 //syncs with sequelize/database and runs server
 db.sequelize.sync({force: true}).then(function() {
