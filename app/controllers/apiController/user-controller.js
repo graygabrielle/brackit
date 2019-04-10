@@ -1,8 +1,4 @@
-const express = require("express");
-
-const router = express.Router();
-
-// Import the model (user.js) to use its database functions.
+const router = require("express").Router();
 const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
