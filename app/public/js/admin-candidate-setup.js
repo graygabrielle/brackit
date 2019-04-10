@@ -4,8 +4,7 @@ $(document).ready(function() {
 
   const candidates = [];
 
-  $("#add-cand").on("click", function(event) {
-    event.preventDefault();
+  $("#add-cand").on("click", function() {
 
     candidates.push($("#new-cand").val().trim());
     $("#new-cand").val("");
@@ -18,7 +17,7 @@ $(document).ready(function() {
       $(".candidates").append(cand);
     }
 
-    if (candidates.length = $(this).data("cand-num")) {
+    if (candidates.length === $(this).data("cand-num")) {
       $(this).removeClass("visible");
       $(this).addClass("invisible");
       $("#submit").removeClass("invisible");
@@ -35,6 +34,8 @@ $(document).ready(function() {
     // Get the AdminId associated with our BrackitId
     $.get(`/api/brackits/${BrackitId}`)
       .then(function(data) {
+        console.log("BRACKIT ID:", BrackitId);
+        console.log(data);
         const adminCode = data.AdminId + "-" + BrackitId;
         console.log(adminCode);
         for (let i = 0; i < candidates.length; i++) {
