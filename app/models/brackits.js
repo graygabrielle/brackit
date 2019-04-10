@@ -10,6 +10,10 @@ module.exports = function(sequelize, DataTypes) {
         numberCandidates: {
             type: DataTypes.INTEGER,
             allowNull: true
+        },
+        socket: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     })
 
