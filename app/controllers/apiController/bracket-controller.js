@@ -1,18 +1,12 @@
-const express = require("express");
-
-const router = express.Router();
-
-router.use(express.urlencoded({extended: true}));
-
-// Import the model (brackets.js) to use its database functions.
-const Brackit = require("../../models/brackets");
+const router = require("express").Router();
+const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
 
-router.post("/api/brackits", async function(req, res) {
+router.post("/brackits", async function(req, res) {
   try {
     const newBrackit = await req.body;
-    Brackit.create({
+    db.Bracket.create({
       name: newBrackit.name,
       numberCandidates: newBrackit.numberCandidates,
       AdminId: newBrackit.AdminId
@@ -24,9 +18,9 @@ router.post("/api/brackits", async function(req, res) {
   }
 });
 
-router.get("/api/brackits/:brackitID", async function(req, res) {
+router.get("/brackits/:brackitID", async function(req, res) {
   try {
-    Brackit.findOne({
+    db.Bracket.findOne({
       where: {
         id: req.params.brackitID
       }
