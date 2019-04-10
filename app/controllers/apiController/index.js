@@ -8,13 +8,12 @@ const db = require("../../models");
 
 router.post("/admins", async function(req, res) {
   try {
-    const newAdmin = await req.body;
-    db.Admin.create({
+    const newAdmin = req.body;
+    const response = await db.Admin.create({
       displayName: newAdmin.displayName
-    }).then(function(response) {
-      res.json(response);
-      console.log("admin response!:", response);
     });
+    res.json(response);
+    console.log("admin response!:", response);
   } catch(e) {
     res.send(e);
   }
@@ -22,57 +21,66 @@ router.post("/admins", async function(req, res) {
 
 router.post("/users", async function(req, res) {
   try {
-    const newUser = await req.body;
+    const newUser = req.body;
     console.log(newUser);
-    db.User.create({
+    const response = await db.User.create({
       BrackitId: newUser.BrackitId,
       displayName: newUser.displayName,
       isAdmin: newUser.isAdmin
-    }).then(function(response) {
-      res.json(response);
-      console.log("user response!:", response);
     });
+    res.json(response);
+    console.log("user response!:", response);
   } catch(e) {
     res.send(e);
   }
 });
 
-router.get("/admins/:adminCode/:brackitID", function(req, res) {
-  try {
-    const adminCode = req.params.adminCode;
-    const brackitID = req.params.brackitID;
-    res.render("admin-brackit-codes", {adminCode, brackitID});
-  } catch(e) {
-    res.send(e);
-  }
-});
+// router.get("/admins/:adminCode/:brackitID", function(req, res) {
+//   try {
+//     const adminCode = req.params.adminCode;
+//     const brackitID = req.params.brackitID;
+//     res.render("admin-brackit-codes", {adminCode, brackitID});
+//   } catch(e) {
+//     res.send(e);
+//   }
+// });
 
 router.post("/brackits", async function(req, res) {
   try {
-    const newBrackit = await req.body;
-    db.Brackit.create({
+    const newBrackit = req.body;
+    const response = await db.Brackit.create({
       name: newBrackit.name,
       numberCandidates: newBrackit.numberCandidates,
       AdminId: newBrackit.AdminId
-    }).then(function(response) {
-      //res.json(response);
-      console.log("brackit response!:", response);
-      res.render("admin-candidate-setup", response);
     });
+    res.json(response);
+    console.log("brackit response!:", response);
   } catch(e) {
     res.send(e);
   }
 });
 
-router.get("/brackits/:brackitID", async function(req, res) {
+router.get("/brackits/:BrackitId", async function(req, res) {
   try {
-    db.Brackit.findOne({
+    const response = db.Brackit.findOne({
       where: {
-        id: req.params.brackitID
+        id: req.params.BrackitId
       }
-    }).then(function(response) {
-      res.json(response);
     });
+    res.json(response);
+  } catch(e) {
+    res.send(e);
+  }
+});
+
+router.post("/candidates", async function(req, res) {
+  try {
+    const newCandidate = req.body;
+    const response = await db.Candidate.create({
+      BrackitId: newCandidate.BrackitId,
+      name: newCandidate.name
+    });
+    res.json(response);
   } catch(e) {
     res.send(e);
   }
