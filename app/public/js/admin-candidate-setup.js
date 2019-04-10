@@ -22,6 +22,8 @@ $(document).ready(function() {
       $(this).addClass("invisible");
       $("#submit").removeClass("invisible");
       $("#submit").addClass("visible");
+      $("#new-cand").removeClass("visible");
+      $("#new-cand").addClass("invisible");
     }
   });
 
@@ -34,10 +36,7 @@ $(document).ready(function() {
     // Get the AdminId associated with our BrackitId
     $.get(`/api/brackits/${BrackitId}`)
       .then(function(data) {
-        console.log("BRACKIT ID:", BrackitId);
-        console.log(data);
         const adminCode = data.AdminId + "-" + BrackitId;
-        console.log(adminCode);
         for (let i = 0; i < candidates.length; i++) {
           const newCandidate = {
           BrackitId: BrackitId,
@@ -49,7 +48,7 @@ $(document).ready(function() {
             .then(function(data) {
               console.log("New Candidate:", data);
               if (i === candidates.length - 1) {
-                $.get(`/create/codes/${BrackitId}/${adminCode}`);
+                window.location.href = `/create/codes/${BrackitId}/${adminCode}`;
               }
             });
         }
