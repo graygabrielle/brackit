@@ -1,20 +1,15 @@
-const express = require("express");
-
-const router = express.Router();
-
-// Import the model (user.js) to use its database functions.
-const User = require("../../models/users");
+const router = require("express").Router();
+const db = require("../../models");
 
 // Create all our routes and set up logic within those routes where required.
 
 router.post("/admin", async function(req, res) {
   try {
-    const user = await req.body;
-    User.create({
-      displayName: user.name,     
-    });
+    const user = await db.User.create({
+      displayName: req.body.name 
+    });  
     res.json(user);
-  } catch(e) {
+  } catch {
     res.send(e);
   }
 });
