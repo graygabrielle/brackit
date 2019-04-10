@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
 
     Admin.associate = function(models) {
 
-        Admin.hasMany(models.Bracket, {
+        Admin.hasMany(models.Brackit, {
             onDelete: "cascade"
         })
         
