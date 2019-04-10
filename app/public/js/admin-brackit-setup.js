@@ -40,7 +40,7 @@ $(document).ready(function() {
             $.post("/api/users", newUser)
               .then(function(data) {
                 console.log("New User:", data);
-                $.get(`/create/add-candidates/${BrackitId}/${numberCandidates}`);
+                window.location.href = `/create/add-candidates/${BrackitId}/${numberCandidates}`;
               });
           });
       });

@@ -62,7 +62,7 @@ router.post("/brackits", async function(req, res) {
 
 router.get("/brackits/:BrackitId", async function(req, res) {
   try {
-    const response = db.Brackit.findOne({
+    const response = await db.Brackit.findOne({
       where: {
         id: req.params.BrackitId
       }
