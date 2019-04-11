@@ -5,13 +5,17 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             validate: {
                 len: [1]
-            }
+            },
+        color: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
         }
     })
 
     Candidate.associate = function(models) {
 
-        Candidate.belongsTo(models.Bracket, {
+        Candidate.belongsTo(models.Brackit, {
             foreignKey: {
               allowNull: false
             }
