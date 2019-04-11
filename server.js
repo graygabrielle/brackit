@@ -72,6 +72,24 @@ db.sequelize.sync({
             BrackitId: bracketId,
             name: "option 4"
         }]);
+
+        const matchup = await db.Matchup.bulkCreate([{
+            CandidateId: candidate[0].id,
+            roundNumber: 1,
+            matchup: 1           
+        }, {
+            CandidateId: candidate[1].id,
+            roundNumber: 1,
+            matchup: 1           
+        }, {
+            CandidateId: candidate[2].id,
+            roundNumber: 1,
+            matchup: 2           
+        }, {
+            CandidateId: candidate[3].id,
+            roundNumber: 1,
+            matchup: 2           
+        }])
     }
 
     seed();

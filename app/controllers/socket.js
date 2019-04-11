@@ -10,7 +10,7 @@ module.exports = function (io) {
     let userId;
     let brackitId;
 
-    socket.on("bracketID", async (bracketId, name, incomingUserId) => {
+    socket.on("join room", async (bracketId, name, incomingUserId) => {
       brackitId = bracketId;
       roomId = `bracket ${brackitId}`;
       userName = name;
@@ -33,13 +33,25 @@ module.exports = function (io) {
           BrackitId: brackitId,
           isConnected: true
         }
-    });
-    // let userNameArray = [];
-    // users.forEach(function(element) {
-    //   userNameArray.push(element.displayName);
-    // })
-    socket.emit("people in room", users);
-  })
+      });
+      socket.emit("people in room", users);
+    })
+
+    socket.on("begin bracket", () => {
+      io.in(roomId).emit("load new round", 1);
+    })
+
+    socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
+      const candidates = await db.Matchup.findAll({
+        where: {
+          
+        }
+      })
+    })
+
+    socket.on("new round started", currentRound => {
+
+    })
 
     //set timeout for emit to room
 
@@ -125,9 +137,8 @@ module.exports = function (io) {
           id: userId
         }
       });
-      io.in(roomId).emit("user left", userName, userId);
 
-      //delete user
+      io.in(roomId).emit("user left", userName, userId);
     });
   });
 };

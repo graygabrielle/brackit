@@ -1,18 +1,5 @@
-// const bracketId = 5;
-// const names = [
-//   "Rey",
-//   "Paprika",
-//   "Sharp",
-//   "Worm",
-//   "Andes",
-//   "Myrna",
-//   "Hyacinth",
-//   "Aether"
-// ];
-// const name = names[Math.floor(Math.random() * names.length)];
-// let numberOfCandidates = 16;
-// let roundNumber = 1;
 $(document).ready(function () {
+
     const name = $(".data-source").attr("data-name");
     const newUserId = $(".data-source").attr("data-id");
     console.log(`Name is ${name} and id is ${newUserId}`);
@@ -20,7 +7,7 @@ $(document).ready(function () {
     let brackitId = $(".brackit-info").attr("data-id");
     let socket = io();
 
-    socket.emit("bracketID", brackitId, name, newUserId);
+    socket.emit("join room", brackitId, name, newUserId);
     socket.emit("who's in room");
 
     socket.on("people in room", users => {
@@ -38,15 +25,24 @@ $(document).ready(function () {
       $(".participants").append(newName);
     });
 
-    // let timeInRound;
-
-
-
     socket.on("user left", (name, id) => {
       console.log(`${name} has left the room.`);
       //delete name from screen
       $(`[data-id="${id}"]`).remove();
     });
+
+    $("#start").on("click", function() {
+      console.log("start button clicked");
+      socket.emit("begin bracket");
+    })
+
+    socket.on("load new round", currentRound => {
+      $("body").load("/brackit/play #play");
+      socket.emit("new round started", currentRound);
+    })
+
+
+    // let timeInRound;
 
     // // $(document).ready(function() {
     // //     $('body').load("/ #test", function(text){
