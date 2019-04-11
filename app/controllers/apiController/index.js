@@ -110,5 +110,60 @@ router.get("/users/:joinCode", async function(req, res) {
   }
 });
 
+router.get("/candidates/:BrackitId", async function(req, res) {
+  try {
+    const BrackitId = req.params.BrackitId;
+    const response = await db.Candidate.findAll({
+      where: {
+        BrackitId: BrackitId
+      }
+    });
+    res.json(response);
+  } catch(e) {
+    res.send(e);
+  }
+});
+
+router.post("/matchups/roundOne", async function(req, res) {
+
+  try {
+
+    const candidates = req.body.candidates;
+    console.log("candidates:", candidates);
+
+    const powerOfTwo = Math.log(candidates.length)/Math.log(2);
+    const numRounds = powerOfTwo | 0;
+    console.log("Number of rounds:", numRounds);
+
+    const matchups = [];
+
+    for (let i = 0; i < candidates.length/2; i++) {
+      matchups.push([candidates[i], i + 1], [candidates[candidates.length - 1 - i], i + 1]);
+    }
+
+    console.log("matchups:", matchups);
+
+    const roundNumber = parseInt(req.params.roundNumber);
+    console.log("roundNumber:", roundNumber);
+    
+    let response = [];
+
+    for (let i = 0; i < matchups.length; i++) { 
+      response[i] = await db.Matchup.create({
+      CandidateId: parseInt(matchups[i][0].id),
+      matchup: matchups[i][1],
+      roundNumber: roundNumber
+      });
+      console.log(`response ${i + 1}:`, response);
+      if (i === matchups.length - 1) {
+        res.json(response);
+      }
+    }
+
+  } catch(e) {
+    res.send(e);
+  }
+});
+
 // Export routes for server.js to use.
 module.exports = router;
