@@ -1,3 +1,5 @@
+const db = require("../models");
+
 module.exports = function (io) {
   // let socketId;
   io.on("connection", socket => {
@@ -5,20 +7,45 @@ module.exports = function (io) {
     console.log(`${socketId} connected to socket.`);
     let userName;
     let roomId;
+    let userId;
+    let brackitId;
 
-    socket.on("bracketID", (bracketId, name) => {
-      roomId = `bracket ${bracketId}`;
+    socket.on("bracketID", async (bracketId, name, incomingUserId) => {
+      brackitId = bracketId;
+      roomId = `bracket ${brackitId}`;
       userName = name;
+      userId = incomingUserId;
       socket.join(roomId);
       console.log(`${userName} joined socket : ${roomId}`);
-      io.in(roomId).emit("new join", userName);
+      socket.broadcast.to(roomId).emit("new join", userName, userId);
+      await db.User.update({
+        isConnected: true
+      }, {
+        where: {
+          id: userId
+        }
+      });
+    })
+
+    socket.on("who's in room", async () => {
+      const users = await db.User.findAll({
+        where: {
+          BrackitId: brackitId,
+          isConnected: true
+        }
     });
+    // let userNameArray = [];
+    // users.forEach(function(element) {
+    //   userNameArray.push(element.displayName);
+    // })
+    socket.emit("people in room", users);
+  })
 
     //set timeout for emit to room
 
     socket.on("pair timer", (pairNumber, roundNumber, numberOfCandidates) => {
       const totalRounds = Math.log(numberOfCandidates, 2);
-      const totalPairs = numberOfCandidates/(2**roundNumber);
+      const totalPairs = numberOfCandidates / (2 ** roundNumber);
       const secondsPerChoice = 5;
       let timeLeft = secondsPerChoice;
       socket.emit("pair countdown", timeLeft);
@@ -32,7 +59,7 @@ module.exports = function (io) {
 
           if (pairNumber < totalPairs) {
             socket.emit("new pair", ++pairNumber);
-          } else if (pairNumber===totalPairs) {
+          } else if (pairNumber === totalPairs) {
             socket.emit("round done", roundNumber, totalRounds);
           }
 
@@ -89,10 +116,16 @@ module.exports = function (io) {
     //     socket.emit('user left', userName);
     // }, 1000);
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", async () => {
       console.log(`${userName} at socket ${socketId} has disconnected.`);
-
-      io.in(roomId).emit("user left", userName);
+      await db.User.update({
+        isConnected: false
+      }, {
+        where: {
+          id: userId
+        }
+      });
+      io.in(roomId).emit("user left", userName, userId);
 
       //delete user
     });

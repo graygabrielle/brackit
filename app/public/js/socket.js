@@ -1,55 +1,77 @@
-const bracketId = 5;
-const names = [
-  "Rey",
-  "Paprika",
-  "Sharp",
-  "Worm",
-  "Andes",
-  "Myrna",
-  "Hyacinth",
-  "Aether"
-];
-const name = names[Math.floor(Math.random() * names.length)];
-let numberOfCandidates = 16;
-let roundNumber = 1;
+// const bracketId = 5;
+// const names = [
+//   "Rey",
+//   "Paprika",
+//   "Sharp",
+//   "Worm",
+//   "Andes",
+//   "Myrna",
+//   "Hyacinth",
+//   "Aether"
+// ];
+// const name = names[Math.floor(Math.random() * names.length)];
+// let numberOfCandidates = 16;
+// let roundNumber = 1;
+$(document).ready(function () {
+    const name = $(".data-source").attr("data-name");
+    const newUserId = $(".data-source").attr("data-id");
+    console.log(`Name is ${name} and id is ${newUserId}`);
 
-let socket = io();
-let timeInRound;
+    let brackitId = $(".brackit-info").attr("data-id");
+    let socket = io();
+    // let timeInRound;
 
-socket.emit("bracketID", bracketId, name);
+    socket.emit("bracketID", brackitId, name, newUserId);
+    socket.emit("who's in room");
 
-socket.on("new join", name => {
-  console.log(`${name} just joined!`);
-  //add name to screen
-});
+    socket.on("people in room", users => {
+      console.log(users);
+      users.forEach(function(elem) {
+        let newName = $("<p>", {"data-id": `${elem.id}`}).text(elem.displayName);
+        $(".participants").append(newName);
+      })
+    })
 
-socket.on("user left", name => {
-  console.log(`${name} has left the room.`);
-  //delete name from screen
-});
+    socket.on("new join", (joinerName, joinerId) => {
+      console.log(`${joinerName} just joined!`);
+      //add name to screen
+      let newName = $("<p>", {"data-id": `${joinerId}`}).text(joinerName);
+      $(".participants").append(newName);
+    });
 
 
-//on start button click
-socket.emit("start bracket", numberOfCandidates);
 
-socket.on("start round", roundNumber => {
-  //get request - bracket page
-  //round whatever
-  //set interval 1000 seconds 5 passes for each pair
-  socket.emit("pair timer", pairNumber, roundNumber, numberOfCandidates);
-});
+    // socket.on("user left", name => {
+    //   console.log(`${name} has left the room.`);
+    //   //delete name from screen
+    // });
 
-socket.on("master countdown", timeLeft => {
-  timeInRound = timeLeft;
+    // // $(document).ready(function() {
+    // //     $('body').load("/ #test", function(text){
+    // //         //$("body").append(text);
+    // //         console.log(text)
+    // //     });
+    // // })
+
+    // //on start button click
+    // socket.emit("start bracket", numberOfCandidates);
+
+    // socket.on("start round", roundNumber => {
+    //   //get request - bracket page
+    //   //round whatever
+    //   //set interval 1000 seconds 5 passes for each pair
+    //   socket.emit("pair timer", pairNumber, roundNumber, numberOfCandidates);
+    // });
+
+    // socket.on("master countdown", timeLeft => {
+    //   timeInRound = timeLeft;
+    // })
+
+
+
+
+    // socket.on("error", err => {
+    //   console.log("Error connecting to room. Please wait for admin to enter.");
+    // });
+
 })
-
-let pairNumber = 1;
-roundNumber = 1;
-numberOfCandidates = 16;
-
-
-
-
-socket.on("error", err => {
-  console.log("Error connecting to room. Please wait for admin to enter.");
-});
