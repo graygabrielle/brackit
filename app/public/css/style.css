@@ -1,7 +1,418 @@
+
+/* ========= importing fonts from assets file and formatting for browser ========= */
+@font-face {
+	font-family: 'Montserrat Alternates';
+	src: url('../assets/fonts/MontserratAlternates-Medium.ttf') format('truetype');
+	src: url('../assets/fonts/MontserratAlternates-Medium.otf') format('opentype');
+	font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+	font-family: 'Montserrat Alternates';
+	src: url('../assets/fonts/MontserratAlternates-SemiBold.ttf') format('truetype');
+	src: url('../assets/fonts/MontserratAlternates-SemiBold.otf') format('opentype');
+	font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+	font-family: 'Montserrat Alternates';
+	src: url('../assets/fonts/MontserratAlternates-ExtraBold.ttf') format('truetype');
+	src: url('../assets/fonts/MontserratAlternates-ExtraBold.otf') format('opentype');
+	font-weight: 200;
+  font-style: normal;
+}
+
+/* ========== =sets up backup fonts if montserrat fails ============*/
+
+body {
+  font-family: 'Montserrat Alternates', 'Roboto', sans-serif;
+}
+
+/* =================================================================*/
+/* =========================== FONTS ===============================*/
+/* =================================================================*/
+
+.title-text {
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 17px;
+  line-height: normal;
+  text-align: center;
+
+  color: #00A2D3;
+}
+
+.primary-text {
+  font-family: 'Montserrat Alternates';
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 25px;
+  color: #483C93;
+}
+
+.user-input {
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: normal;
+
+  color: #483C93;
+}
+
+/* =================================================================*/
+/* =========================== COLORS ==============================*/
+/* =================================================================*/
+
+.brackit-coral {
+  background: #FF7062;
+}
+
+.brackit-blue {
+  background: #00A2D3;
+}
+
+.candidate-1 {
+  background: #FA4DA7;
+}
+
+.candidate-2 {
+  background: #97F849;
+}
+
+.candidate-3 {
+  background: #FD7960;
+}
+
+.candidate-4 {
+  background: #009F79;
+}
+
+.candidate-5 {
+  background: #2E3482;
+}
+
+.candidate-6 {
+  background: #FFDB00;
+}
+
+.candidate-7 {
+  background: #00CFD5;
+}
+
+.candidate-8 {
+  background: #FEFF01;
+}
+
+/* .candidate-9 {
+  background: #97F849;
+}
+
+.candidate-10 {
+  background: #97F849;
+}
+
+.candidate-11 {
+  background: #97F849;
+}
+
+.candidate-12 {
+  background: #97F849;
+}
+.candidate-13 {
+  background: #97F849;
+}
+
+.candidate-14 {
+  background: #97F849;
+}
+
+.candidate-15 {
+  background: #97F849;
+}
+
+.candidate-16 {
+  background: #97F849;
+} */
+
+/* =================================================================*/
+/* ===================== POSITIONING & SHAPES ======================*/
+/* =================================================================*/
+
+.logo-pos {
+  position: absolute;
+  width: 214px;
+  height: 44px;
+  left: 83px;
+  top: 142px;
+}
+
+.brackit-title {
+  position: absolute;
+  width: 289px;
+  height: 40px;
+  left: 43px;
+  top: 203px;
+}
+
+.bars-layer-1-top {
+  position: absolute;
+  left: -138px;
+  top: -32px;
+}
+
+.bars-layer-2-top {
+  position: absolute;
+  left: 16px;
+  top: -143px;
+}
+
+.bars-layer-1-btm {
+  position: absolute;
+  left: -80px;
+  top: 597px;
+}
+
+/* ================ screen 1 positioning & shapes ================ */
+
+
+/* ================ screen 2 positioning & shapes ================ */
+
+.container-2 {
+  margin:165px 45px 0 45px;
+  width: 285px;
+  align-content: center;
+}
+
+.title-pos-2 {
+left: 47px;
+  top: 165px;
+}
+
+.body-pos-2 {
+  text-align: center;
+  width: 286px;
+  /* height: 45px; */
+  margin: 18% auto;
+  /* top: 250px; */
+}
+
+.join-btn {
+  text-align: center;
+  position:absolute;
+  width: 261px;
+  height: 24px;
+  margin-left: 5%;
+  top: 350px;
+
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(1.9deg);
+}
+
+.create-btn {
+  text-align: center;
+  position:absolute;
+  width: 263px;
+  height: 24px;
+  margin-left: 5%;
+  top: 420px;
+
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.1deg);
+}
+
+/* ================ screen 3 positioning & shapes ================ */
+
+.body-pos-3-a {
+  position: absolute;
+  width: 283px;
+  height: 40px;
+  left: 47px;
+  top: 229px;
+}
+
+.form-input-3a {
+  position: absolute;
+  width: 158px;
+  height: 40px;
+  left: 110px;
+  top: 284px;
+}
+
+.body-pos-3-b {
+  position: absolute;
+  width: 109px;
+  height: 19px;
+  left: 134px;
+  top: 331px;
+}
+
+.form-input-3b {  
+  position: absolute;
+  width: 264px;
+  height: 40px;
+  left: 57px;
+  top: 385px;
+}
+
+.body-pos-3-c {
+  position: absolute;
+  width: 286px;
+  height: 40px;
+  left: 46px;
+  top: 430px;
+}
+
+.radio-btn-3 {
+  position: absolute;
+  width: 286px;
+  height: 40px;
+  left: 45px;
+  top: 478px;
+}
+
+.submit-btn-3 {
+  position: absolute;
+  width: 115px;
+  height: 24px;
+  left: 249px;
+  top: 557px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.1deg);
+}
+
+/* ================ screen 4 positioning ================ */
+
+.body-pos-4-a {
+  position: absolute;
+  width: 222px;
+  height: 40px;
+  left: 44px;
+  top: 252px;
+}
+
+.add-btn-4 {
+  position: absolute;
+  width: 51px;
+  height: 24px;
+  left: 276px;
+  top: 252px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.1deg);
+}
+
+.form-input-4a {  
+  position: absolute;
+  width: 198px;
+  height: 40px;
+  left: 89px;
+  top: 302px;
+}
+
+.submit-btn-4 {
+  position: absolute;
+  width: 96px;
+  height: 24px;
+  left: 254px;
+  top: 324px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.1deg);
+}
+
+.cand-1-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-1.5deg);
+}
+
+.cand-2-4 {
+  position: absolute;
+  width: 186px;
+  height: 24px;
+  left: -8px;
+  top: 445px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(4.28deg);
+}
+
+.cand-3-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(0.2deg);
+}
+
+.cand-4-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(1.5deg);
+}
+
+.cand-5-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(5.56deg);
+}
+
+.cand-6-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(3.73deg);
+}
+
+.cand-7-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(2.75deg);
+}
+
+.cand-8-4 {
+  position: absolute;
+  width: 196px;
+  height: 24px;
+  left: -11px;
+  top: 384px;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(1.5deg);
+}
+
+/* ================ screen 5 positioning & shapes ================ */
+
+
+/* =================================================================*/
+/* ============================= OTHER =============================*/
+/* =================================================================*/
+
 .visible {
-    display: block;
+  display: block;
 }
 
 .invisible {
-    display: none;
+  display: none;
 }
