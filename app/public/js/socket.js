@@ -19,13 +19,13 @@ $(document).ready(function () {
 
     let brackitId = $(".brackit-info").attr("data-id");
     let socket = io();
-    // let timeInRound;
 
     socket.emit("bracketID", brackitId, name, newUserId);
     socket.emit("who's in room");
 
     socket.on("people in room", users => {
       console.log(users);
+
       users.forEach(function(elem) {
         let newName = $("<p>", {"data-id": `${elem.id}`}).text(elem.displayName);
         $(".participants").append(newName);
@@ -34,17 +34,19 @@ $(document).ready(function () {
 
     socket.on("new join", (joinerName, joinerId) => {
       console.log(`${joinerName} just joined!`);
-      //add name to screen
       let newName = $("<p>", {"data-id": `${joinerId}`}).text(joinerName);
       $(".participants").append(newName);
     });
 
+    // let timeInRound;
 
 
-    // socket.on("user left", name => {
-    //   console.log(`${name} has left the room.`);
-    //   //delete name from screen
-    // });
+
+    socket.on("user left", (name, id) => {
+      console.log(`${name} has left the room.`);
+      //delete name from screen
+      $(`[data-id="${id}"]`).remove();
+    });
 
     // // $(document).ready(function() {
     // //     $('body').load("/ #test", function(text){
