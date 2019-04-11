@@ -16,7 +16,8 @@ router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", function(re
     }
     const displayName = req.params.displayName;
     const userId = req.params.userId;
-    res.render('waiting-room', {displayName, isAdmin, userId});
+    const BrackitId = req.params.BrackitId;
+    res.render('waiting-room', {displayName, isAdmin, userId, BrackitId});
 })
 
 module.exports = router;
