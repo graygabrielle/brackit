@@ -44,9 +44,12 @@ module.exports = function (io) {
     socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
       const candidates = await db.Matchup.findAll({
         where: {
-          
-        }
-      })
+          matchup: pairNumber,
+          roundNumber: currentRoundNumber
+        },
+        include: [db.Candidate]
+      });
+      socket.emit("send new pair", candidates);
     })
 
     socket.on("new round started", currentRound => {
