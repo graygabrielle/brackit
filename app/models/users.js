@@ -15,9 +15,9 @@ module.exports = function(sequelize, DataTypes) {
 
     User.associate = function(models) {
 
-        User.belongsTo(models.Bracket, {
+        User.belongsTo(models.Brackit, {
             foreignKey: {
-              allowNull: false
+              allowNull: true
             }
           });
 

@@ -4,8 +4,7 @@ $(document).ready(function() {
 
   const candidates = [];
 
-  $("#add-cand").on("click", function(event) {
-    event.preventDefault();
+  $("#add-cand").on("click", function() {
 
     candidates.push($("#new-cand").val().trim());
     
@@ -24,6 +23,8 @@ $(document).ready(function() {
       $(this).addClass("invisible");
       $("#submit").removeClass("invisible");
       $("#submit").addClass("visible");
+      $("#new-cand").removeClass("visible");
+      $("#new-cand").addClass("invisible");
     }
   });
 
@@ -31,24 +32,24 @@ $(document).ready(function() {
   $("#submit").on("click", function(event) {
     event.preventDefault();
 
-    const brackitID = $(this).data("brack-num");
+    const BrackitId = $(this).data("brack-num");
 
-    // Get the AdminId associated with our brackitID
-    $.get(`/api/brackits/${brackitID}`)
+    // Get the AdminId associated with our BrackitId
+    $.get(`/api/brackits/${BrackitId}`)
       .then(function(data) {
-        const adminCode = data.AdminId;
+        const adminCode = data.AdminId + "-" + BrackitId;
         for (let i = 0; i < candidates.length; i++) {
           const newCandidate = {
-          brackitID: brackitID,
+          BrackitId: BrackitId,
           name: candidates[i]
           };
           // Post the candidates
           $.post("/api/candidates", newCandidate)
             // On success, run the following code 
             .then(function(data) {
-              console.log(data);
+              console.log("New Candidate:", data);
               if (i === candidates.length - 1) {
-                $.get(`/api/admins/${adminCode}/${brackitID}`);
+                window.location.href = `/create/codes/${BrackitId}/${adminCode}`;
               }
             });
         }

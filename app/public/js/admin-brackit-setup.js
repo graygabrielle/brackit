@@ -11,12 +11,14 @@ $(document).ready(function() {
       displayName: $("#admin-name").val().trim()
     };
 
-    const numberCandidates = parseInt($("#num-of-cand").val());
+    const numberCandidates = parseInt($("input[name='num-of-cand']:checked").val());
+    console.log(numberCandidates + " candidates");
 
     // Post the new admin
     $.post("/api/admins", newAdmin)
       // On success, run the following code
       .then(function(data) {
+        console.log("New Admin:", data);
         const AdminId = data.id;
         // Make a newBrackit object
         const newBrackit = {
@@ -25,20 +27,22 @@ $(document).ready(function() {
           AdminId: AdminId
         };
         // Post the new brackit
-        $.post("/api/brackits", newBrackit);
-          // On success, run the following code
-        //  .then(function(data) {
-        //    const brackitID = data.id;
-        //    // Save brackitID to localStorage so we can attach it to the candidates on the next page.
-        //    localStorage.setItem("brackitID", brackitID);
-        //    // Get request to render "admin-candidate-setup.handlebars"
-        //    // The number of candidate fields to fill in will depend on the number of candidates selected,
-        //    // hence the inclusion of the brackitID in the URL,
-        //    // which allows us to use req.params in the API route to check the number of candidates associated with that brackitID
-        //    // (the path being something along the lines of "/api/:brackitID/add-candidates")
-        //    // and render the view with the appropriate number of fields (=numberCandidates).
-        //    $.get(`/${brackitID}/add-candidates/${numberCandidates}`);
-        //  });
+        $.post("/api/brackits", newBrackit)
+          .then(function(data) {
+            console.log("New Brackit:", data);
+            const BrackitId = data.id;
+            const newUser = {
+              BrackitId: BrackitId,
+              isAdmin: true,
+              displayName: newAdmin.displayName
+            };
+            // Post the admin as a new user
+            $.post("/api/users", newUser)
+              .then(function(data) {
+                console.log("New User:", data);
+                window.location.href = `/create/add-candidates/${BrackitId}/${numberCandidates}`;
+              });
+          });
       });
 
   });
