@@ -1,2 +1,2 @@
 # brack[it]
-bracket-based decision making tool
+bracket-based group decision making tool

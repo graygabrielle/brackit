@@ -8,6 +8,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     candidates.push($("#new-cand").val().trim());
+    
     $("#new-cand").val("");
 
     $(".candidates").empty();
@@ -18,7 +19,7 @@ $(document).ready(function() {
       $(".candidates").append(cand);
     }
 
-    if (candidates.length = $(this).data("cand-num")) {
+    if (candidates.length === $(this).data("cand-num")) {
       $(this).removeClass("visible");
       $(this).addClass("invisible");
       $("#submit").removeClass("invisible");
