@@ -39,8 +39,8 @@ db.sequelize.sync({
 }).then(function () {
 
 
-     //seeds
-     const seed = async function () {
+    //seeds
+    const seed = async function () {
         const admin = await db.Admin.create({
             displayName: "Admin"
         });
@@ -57,42 +57,77 @@ db.sequelize.sync({
             BrackitId: bracketId,
             displayName: adminName,
             isAdmin: true
-          });
+        });
+
+        const userId = user.id;
 
         const candidate = await db.Candidate.bulkCreate([{
             BrackitId: bracketId,
-            name: "option 1"
+            name: "option 1",
+            color: "purple"
         }, {
             BrackitId: bracketId,
-            name: "option 2"
+            name: "option 2",
+            color: "white"
         }, {
             BrackitId: bracketId,
-            name: "option 3"
+            name: "option 3",
+            color: "hello"
         }, {
             BrackitId: bracketId,
-            name: "option 4"
+            name: "option 4",
+            color: "red"
         }]);
 
         const matchup = await db.Matchup.bulkCreate([{
             CandidateId: candidate[0].id,
             roundNumber: 1,
-            matchup: 1           
+            matchup: 1
         }, {
             CandidateId: candidate[1].id,
             roundNumber: 1,
-            matchup: 1           
+            matchup: 1
         }, {
             CandidateId: candidate[2].id,
             roundNumber: 1,
-            matchup: 2           
+            matchup: 2
         }, {
             CandidateId: candidate[3].id,
             roundNumber: 1,
-            matchup: 2           
+            matchup: 2
         }])
+        const votes = await db.Vote.bulkCreate([{
+                UserId: userId,
+                CandidateId: candidate[0].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[3].id,
+                roundNumber: 1
+            }
+        ])
     }
 
-    seed();
+    seed().then(() => {
+        let matchupNumber = 1;
+        let roundNumber = 1;
+        let bracketId = 1;
+
+        db.sequelize.query(`SELECT matchup, roundNumber, brack.name "question", cand.name "candidateName", cand.id "candidateId", brack.id "brackitId" FROM Matchups mat INNER JOIN Candidates cand ON cand.id = mat.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE matchup=${matchupNumber} AND roundNumber=${roundNumber} AND brack.id=${bracketId};`, 
+        {
+            type: db.sequelize.QueryTypes.SELECT
+        }).then((results, metadata) => {
+            console.log(results);
+        }).catch((error) => {
+            console.log(error)
+        })
+
+        }
+    );
+
+
+
 
 
 

@@ -5,3 +5,11 @@
 .invisible {
     display: none;
 }
+
+.active {
+    color: red;
+}
+
+.inactive {
+    color: blue;
+}

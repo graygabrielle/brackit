@@ -1,17 +1,20 @@
 $(document).ready(function () {
 
   const name = $(".data-source").attr("data-name");
-  const newUserId = $(".data-source").attr("data-id");
-  console.log(`Name is ${name} and id is ${newUserId}`);
+  const userId = $(".data-source").attr("data-id");
+  console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
+  let roundNumber = 1;
+  let matchupNumber = 1;
+  let chosenCand;
   let socket = io();
 
-  socket.emit("join room", brackitId, name, newUserId);
+  socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
 
+  //functions 
   socket.on("people in room", users => {
-    console.log(users);
 
     users.forEach(function (elem) {
       let newName = $("<p>", {
@@ -41,22 +44,61 @@ $(document).ready(function () {
   })
 
   socket.on("load new round", currentRound => {
-    $("body").load("/brackit/play #play");
+    matchupNumber = 1;
+    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${roundNumber}/matchup/${matchupNumber} #play`);
     socket.emit("new round started", currentRound);
-    socket.emit("get new pair", 1, 1);
   })
 
-  socket.on("send new pair", candidates => {
-    let timeout = setTimeout(() => {
-      $(".cand1").text(candidates[0].Candidate.name);
-      $(".cand2").text(candidates[1].Candidate.name);
+  socket.on("load new matchup", (currentRound, matchupNumber) => {
+    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${currentRound}/matchup/${matchupNumber} #play`);
+  })
 
-    }, 10);
+  const loadNewMatchup = () => {
+
+  }
+
+  // socket.on("send new pair", candidates => {
+  //   let timeout = setTimeout(() => {
+  //     $(".cand1").text(candidates[0].Candidate.name);
+  //     $(".cand2").text(candidates[1].Candidate.name);
+
+  //   }, 10);
+  // })
+
+
+  //brackit-matchup handlebars
+  $(document).on("click", ".choice", function () {
+    let otherCand;
+
+    if ($(this).hasClass("cand1")) {
+      otherCand = ".cand2";
+    } else {
+      otherCand = ".cand1";
+    }
+
+    if ($(this).hasClass("inactive")) {
+
+      $(this).removeClass("inactive");
+      $(otherCand).removeClass("active");
+
+    } else if ($(this).hasClass("active")) {
+      return;
+    }
+
+    $(this).addClass("active");
+    $(otherCand).addClass("inactive");
+
+    chosenCand = $(this).attr("data-id");
+    console.timeLog(chosenCand);
   })
 
   $(document).on("click", ".pick-cand", () => {
-    socket.emit("get new pair", 2, 1);
+
+    // matchupNumber++;
+    socket.emit("vote", userId, chosenCand, roundNumber);
+    // $("#insert").load(`/brackit/play/brack/${brackitId}/round/${currentRound}/matchup/${matchupNumber} #play`);
   })
+
 
 
   // let timeInRound;
