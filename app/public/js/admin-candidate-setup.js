@@ -38,6 +38,7 @@ $(document).ready(function() {
     $.get(`/api/brackits/${BrackitId}`)
       .then(function(data) {
         const adminCode = data.AdminId + "-" + BrackitId;
+        const postedCandidates = [];
         for (let i = 0; i < candidates.length; i++) {
           const newCandidate = {
           BrackitId: BrackitId,
@@ -48,8 +49,14 @@ $(document).ready(function() {
             // On success, run the following code 
             .then(function(data) {
               console.log("New Candidate:", data);
-              if (i === candidates.length - 1) {
-                window.location.href = `/create/codes/${BrackitId}/${adminCode}`;
+              postedCandidates[i] = data;
+              if (postedCandidates.length === candidates.length) {
+                console.log({postedCandidates});
+                $.post("/api/matchups/roundOne", {postedCandidates})
+                .then(function(data) {
+                  console.log("Data:", data);
+                  window.location.href = `/create/codes/${BrackitId}/${adminCode}`;
+                });
               }
             });
         }
