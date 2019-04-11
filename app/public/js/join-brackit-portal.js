@@ -8,7 +8,7 @@ $(document).ready(function() {
         .then(function(data) {
           const isAdmin = data[1];
           if (isAdmin) {
-            window.location.href = `/join/${data[0][0].BrackitId}/waiting-room/admin/${data[0][0].displayName}`;
+            window.location.href = `/join/${data[0][0].BrackitId}/waiting-room/${data[0][0].id}/${data[0][0].displayName}/admin`;
           } else {
             window.location.href = `/join/${data[0][0].BrackitId}/username`;
           }
