@@ -86,5 +86,29 @@ router.post("/candidates", async function(req, res) {
   }
 });
 
+router.get("/users/:joinCode", async function(req, res) {
+  try {
+    const joinCode = req.params.joinCode;
+    let BrackitId;
+    let isAdmin = false;
+    if (joinCode.includes("-")) {
+      const codesArr = joinCode.split("-");
+      BrackitId = codesArr[1];
+      isAdmin = true;
+    } else {
+      BrackitId = joinCode;
+    }
+    const response = [await db.User.findAll({
+      where: {
+        BrackitId: BrackitId
+      }
+    }), isAdmin
+    ];
+    res.json(response);
+  } catch(e) {
+    res.send(e);
+  }
+});
+
 // Export routes for server.js to use.
 module.exports = router;

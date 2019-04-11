@@ -4,12 +4,13 @@ router.get("/", function(req, res) {
     res.render('join-brackit-portal', {});
 })
 
-router.get("/username", function(req, res) {
+router.get("/:BrackitId/username", function(req, res) {
     res.render('join-brackit-participant', {});
 })
 
-router.get("/waiting-room", function(req, res) {
-    res.render('brackit-waiting-room', {});
+router.get("/:BrackitId/waiting-room/admin/:displayName", function(req, res) {
+    const adminName = req.params.displayName;
+    res.render('admin-waiting-room', {adminName});
 })
 
 module.exports = router;
