@@ -6,7 +6,10 @@ $(document).ready(function() {
 
   $("#add-cand").on("click", function() {
 
-    candidates.push($("#new-cand").val().trim());
+    const newCandStr =  $("#new-cand").val().trim();
+    if (newCandStr.length >= 1) {
+      candidates.push(newCandStr);
+    }
     
     $("#new-cand").val("");
 
