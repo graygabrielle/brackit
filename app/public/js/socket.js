@@ -54,6 +54,10 @@ $(document).ready(function () {
     }, 10);
   })
 
+  $(document).on("click", ".pick-cand", () => {
+    socket.emit("get new pair", 2, 1);
+  })
+
 
   // let timeInRound;
 
