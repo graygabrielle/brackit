@@ -13,8 +13,8 @@ $(document).ready(function() {
         }
         $.post("/api/users", newUser)
             .then(function(data){
-                console.log(data);
-                window.location.href = `/join/${data.BrackitId}/waiting-room/${data.displayName}`;
+                console.log("user id: ", data.id);
+                window.location.href = `/join/${data.BrackitId}/waiting-room/${data.id}/${data.displayName}`;
 
             })
 

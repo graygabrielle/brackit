@@ -9,13 +9,14 @@ router.get("/:BrackitId/username", function(req, res) {
     res.render('join-brackit-participant', {BrackitId});
 })
 
-router.get("/:BrackitId/waiting-room/:displayName/:admin*?", function(req, res) {
+router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", function(req, res) {
     let isAdmin = false;
     if(req.params.admin){
         isAdmin = true;
     }
     const displayName = req.params.displayName;
-    res.render('waiting-room', {displayName, isAdmin});
+    const userId = req.params.userId;
+    res.render('waiting-room', {displayName, isAdmin, userId});
 })
 
 module.exports = router;
