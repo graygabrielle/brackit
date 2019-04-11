@@ -7,6 +7,7 @@ $(document).ready(function() {
   $("#add-cand").on("click", function() {
 
     candidates.push($("#new-cand").val().trim());
+    
     $("#new-cand").val("");
 
     $(".candidates").empty();
