@@ -17,21 +17,7 @@ $(document).ready(function() {
                 window.location.href = `/join/${data.BrackitId}/waiting-room/${data.displayName}`;
 
             })
-        
-
-
-    //   const joinCode = $("#join-code").val().trim();
-    //   $.get(`/api/users/${joinCode}`)
-    //     .then(function(data) {
-    //       const isAdmin = data[1];
-    //       if (isAdmin) {
-    //         window.location.href = `/join/${data[0][0].BrackitId}/waiting-room/${data[0][0].displayName}`;
-    //       } else {
-    //         window.location.href = `/join/${data[0][0].BrackitId}/username`;
-    //       }
-    //     })
-    });
 
 });
 
-
+})
