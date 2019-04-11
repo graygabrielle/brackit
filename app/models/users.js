@@ -10,6 +10,11 @@ module.exports = function(sequelize, DataTypes) {
             validation: {
                 len: [1]
             }
+        },
+        isConnected: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         }
     })
 

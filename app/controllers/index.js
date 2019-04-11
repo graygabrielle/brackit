@@ -6,11 +6,11 @@ const brackitHTMLRoutes = require("./brackit.js")
 
 
 
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
     res.render('index');
 })
 
-router.get("/test", function(req, res) {
+router.get("/test", function (req, res) {
     res.render("test");
 })
 

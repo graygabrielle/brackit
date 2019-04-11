@@ -1,3 +1,5 @@
+const db = require("../models");
+
 module.exports = function (io) {
   // let socketId;
   io.on("connection", socket => {
@@ -5,20 +7,60 @@ module.exports = function (io) {
     console.log(`${socketId} connected to socket.`);
     let userName;
     let roomId;
+    let userId;
+    let brackitId;
 
-    socket.on("bracketID", (bracketId, name) => {
-      roomId = `bracket ${bracketId}`;
+    socket.on("join room", async (bracketId, name, incomingUserId) => {
+      brackitId = bracketId;
+      roomId = `bracket ${brackitId}`;
       userName = name;
+      userId = incomingUserId;
       socket.join(roomId);
       console.log(`${userName} joined socket : ${roomId}`);
-      io.in(roomId).emit("new join", userName);
-    });
+      socket.broadcast.to(roomId).emit("new join", userName, userId);
+      await db.User.update({
+        isConnected: true
+      }, {
+        where: {
+          id: userId
+        }
+      });
+    })
+
+    socket.on("who's in room", async () => {
+      const users = await db.User.findAll({
+        where: {
+          BrackitId: brackitId,
+          isConnected: true
+        }
+      });
+      socket.emit("people in room", users);
+    })
+
+    socket.on("begin bracket", () => {
+      io.in(roomId).emit("load new round", 1);
+    })
+
+    socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
+      const candidates = await db.Matchup.findAll({
+        where: {
+          matchup: pairNumber,
+          roundNumber: currentRoundNumber
+        },
+        include: [db.Candidate]
+      });
+      socket.emit("send new pair", candidates);
+    })
+
+    socket.on("new round started", currentRound => {
+
+    })
 
     //set timeout for emit to room
 
     socket.on("pair timer", (pairNumber, roundNumber, numberOfCandidates) => {
       const totalRounds = Math.log(numberOfCandidates, 2);
-      const totalPairs = numberOfCandidates/(2**roundNumber);
+      const totalPairs = numberOfCandidates / (2 ** roundNumber);
       const secondsPerChoice = 5;
       let timeLeft = secondsPerChoice;
       socket.emit("pair countdown", timeLeft);
@@ -32,7 +74,7 @@ module.exports = function (io) {
 
           if (pairNumber < totalPairs) {
             socket.emit("new pair", ++pairNumber);
-          } else if (pairNumber===totalPairs) {
+          } else if (pairNumber === totalPairs) {
             socket.emit("round done", roundNumber, totalRounds);
           }
 
@@ -89,12 +131,17 @@ module.exports = function (io) {
     //     socket.emit('user left', userName);
     // }, 1000);
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", async () => {
       console.log(`${userName} at socket ${socketId} has disconnected.`);
+      await db.User.update({
+        isConnected: false
+      }, {
+        where: {
+          id: userId
+        }
+      });
 
-      io.in(roomId).emit("user left", userName);
-
-      //delete user
+      io.in(roomId).emit("user left", userName, userId);
     });
   });
 };

@@ -1,8 +1,8 @@
 {{>header}}
 
 <section>
+    <h5 class="brackit-info" data-id="{{BrackitId}}">{{question}}</h5>
 
-    <h5>{{question}}</h5>
     {{#if isAdmin}}{{>admin-waiting-room}}{{else}}{{>participant-waiting-room}}{{/if}}
 
     {{!-- drop participants into here as they join --}}
@@ -10,15 +10,8 @@
 
     </div>
 
-    {{!-- this waiting message is only visible to participants --}}
-    <h5>Hey, {{displayName}}! When all your participants are here, click "brack[it]" to get started!</h5>
-    {{!-- start button and label are only visible to admin --}}
-    <button id="start" data-id={{BrackitId}}>brack[it]!</button>
-
-    <div class="participants">
-        
-    </div>
-
 </section>
+<script src="/js/socket.js"></script>
+<script>
+    
 
-<script src="/js/waiting-room.js" type="text/javascript"></script>
