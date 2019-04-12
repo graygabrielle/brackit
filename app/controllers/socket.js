@@ -122,7 +122,7 @@ module.exports = function (io) {
         });
         const totalCandidates = thisBrackit.numberCandidates;
         const currentRound = 1;
-        const totalRounds = Math.log(totalCandidates, 2);
+        const totalRounds = Math.log2(totalCandidates);
         const currentMatchup = 1;
         const totalMatchups = totalCandidates / 2;
   
