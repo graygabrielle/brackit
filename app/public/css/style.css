@@ -71,7 +71,7 @@ body {
   font-weight: 600;
   font-size: 15px;
   line-height: normal;
-
+  text-align: center;
   color: rgba(72, 60, 147, 0.557);
 }
 
@@ -303,7 +303,8 @@ body {
 
 .form-input-3-a {
   position: absolute;
-  left: 127px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 264px;
 }
 
