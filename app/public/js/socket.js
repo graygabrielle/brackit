@@ -25,7 +25,7 @@ $(document).ready(function () {
       colorNum++;
     })
   })
-
+ 
   socket.on("new join", (joinerName, joinerId) => {
     console.log(`${joinerName} just joined!`);
     let newName = $("<p>", {
@@ -35,6 +35,7 @@ $(document).ready(function () {
     $(".participants").append(newName);
     colorNum++;
   });
+
 
   socket.on("user left", (name, id) => {
     console.log(`${name} has left the room.`);

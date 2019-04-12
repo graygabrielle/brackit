@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "M@d4H@tting",
+    "password": null
     "database": "brackit_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "XiYZ4r8ZgNN9bEUZgaF2QhYQME",
+    "password": "Int^Rad1354",
     "database": "brackit_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
