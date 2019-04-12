@@ -166,13 +166,13 @@ body {
 
 .brackit-question {
   position: absolute;
-  width: 289px;
   height: 40px;
-  left: 43px;
-  top: 29vh;
-
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30vh;
+ 
   color: #00A2D3;
-}
+ }
 
 .top-colors{
   position: absolute;
@@ -631,8 +631,19 @@ body {
   color: #483C93
 }
 
-/* ================ screen 5 positioning & shapes ================ */
 
+
+/* ================ screen WAITING ROOM positioning & shapes ================ */
+
+.body-pos-waiting-1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 287px;
+  height: 37px;
+  top: 37vh;
+  text-align: center;
+}
 
 /* =================================================================*/
 /* ============================= OTHER =============================*/

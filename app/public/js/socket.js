@@ -16,6 +16,7 @@ $(document).ready(function () {
   //   }
   // }
   let localRoundInfo;
+  let colorNum = 1;
 
   socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
@@ -25,19 +26,23 @@ $(document).ready(function () {
 
     users.forEach(function (elem) {
       let newName = $("<p>", {
+        "class": `cand-${colorNum}`,
         "data-id": `${elem.id}`
       }).text(elem.displayName);
       $(".participants").append(newName);
+      colorNum++;
     })
   })
-
+ 
   socket.on("new join", (joinerName, joinerId) => {
     console.log(`${joinerName} just joined!`);
     let newName = $("<p>", {
+      "class": `cand-${colorNum}`,
       "data-id": `${joinerId}`
     }).text(joinerName);
     $(".participants").append(newName);
-  });
+    colorNum++;
+  })
 
   socket.on("user left", (name, id) => {
     console.log(`${name} has left the room.`);
