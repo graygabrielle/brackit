@@ -43,8 +43,6 @@ body {
   font-weight: 200;
   font-size: 17px;
   line-height: normal;
-  text-align: center;
-
   color: #00A2D3;
 }
 
@@ -54,6 +52,7 @@ body {
   font-size: 15px;
   line-height: 25px;
   color: #483C93;
+
 }
 
 .user-input {
@@ -147,10 +146,10 @@ body {
 
 .logo-pos {
   position: absolute;
-  width: 214px;
-  height: 44px;
-  left: 83px;
-  top: 142px;
+  height: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 22vh;
 }
 
 .brackit-question {
@@ -164,13 +163,13 @@ body {
 .top-colors{
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
 }
 
 .bottom-colors{
   position: absolute;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
 }
 
 /* .bars-layer-1-top {
@@ -195,13 +194,13 @@ body {
 } */
 
 /* ======this extends color pattern on bottom of screen for larger phones */
-.bars-layer-1-btm-lg {
+/* .bars-layer-1-btm-lg {
   position: absolute;
   left: 507.78px;
   top: 831.19px;
   
   transform: rotate(-174.45deg);
-}
+} */
 
 /* ================ screen 1 positioning & shapes ================ */
 
@@ -216,19 +215,22 @@ body {
 
 .container{
   width: 100vw;
-  text-align: center;
+
+
 }
 
 .logo-pos-2{
-position: absolute;
-width: 148px;
-height: 43px;
-top: 28vh;
+  position: absolute;
+  height: 6vh;
+  top: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .title-pos-2 {
-  position: relative;
-  /* margin: 0 auto; */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   top: 24vh;
   width: 122px;
   height: 23px;
@@ -238,46 +240,58 @@ top: 28vh;
 
 .body-pos-2 {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 241px;
   height: 45px;
-  /* margin: 0 auto; */
   top: 42vh;
   text-align: center;
 }
 
 .join-btn {
   text-align: center;
-  position:absolute;
+  position: relative;
   width: 261px;
   line-height: 24px;
-  /* margin: 0 auto; */
-  top: 59vh;
-
+  margin: 0 auto;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(1.9deg);
 }
 
+.join-btn-pos{
+  position: absolute;
+  top: 59vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .create-btn {
   text-align: center;
-  position:absolute;
+  position: relative;
   width: 263px;
   line-height: 24px;
-  /* margin: 0 auto; */
-  top: 70vh;
-
+  margin: 0 auto;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
+}
+
+.create-btn-pos{
+  position: absolute;
+  top: 70vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* ================ screen 3 positioning & shapes ================ */
 
 .body-pos-3-a {
   position: absolute;
-  left: 103px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 229px;
 }
 
-.form-input-3a {
+.form-input-3-a {
   position: absolute;
   left: 127px;
   top: 264px;
@@ -285,13 +299,15 @@ top: 28vh;
 
 .body-pos-3-b {
   position: absolute;
-  left: 134px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 331px;
 }
 
-.form-input-3b {  
+.form-input-3-b {  
   position: absolute;
-  left: 75px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 365px;
 }
 
@@ -311,7 +327,8 @@ top: 28vh;
   position: absolute;
   width: 115px;
   height: 24px;
-  left: 249px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 553px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
