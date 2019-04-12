@@ -12,7 +12,7 @@ router.get("/:BrackitId/username", function (req, res) {
     });
 })
 
-router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", async function (req, res) {
+router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", function (req, res) {
     let isAdmin = false;
     if (req.params.admin) {
         isAdmin = true;
@@ -22,18 +22,11 @@ router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", async funct
         const displayName = req.params.displayName;
         const userId = req.params.userId;
         const BrackitId = req.params.BrackitId;
-        const brackit = await db.Brackit.findOne({
-          where: {
-              id: BrackitId
-          }
-        });
-      const question = brackit.name;
         res.render('waiting-room', {
             displayName,
             isAdmin,
             userId,
-            BrackitId,
-            question
+            BrackitId
         });
 
     })
