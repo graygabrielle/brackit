@@ -69,6 +69,19 @@ $(document).ready(function () {
   socket.on("local round over", roundData => {
     //render waiting screen
     //start to listen to global countdown/print global countdown
+    socket.on("master round countdown", timeLeft =>{
+
+    })
+
+  })
+
+  socket.on("final local round over", roundData => {
+    //render waiting screen
+    //start to listen to global countdown/print global countdown
+    socket.on("master round countdown", timeLeft =>{
+
+    })
+
   })
 
   //TIMER FCNS
@@ -76,6 +89,25 @@ $(document).ready(function () {
     $(".timer").text(timeLeft);
   })
 
+  socket.on("get results", roundData => {
+    //render results page
+    //for URL:
+    let total = roundData.totalRounds;
+    let current = roundData.currentRound;
+  })
+
+  socket.on("final results", roundData => {
+    //render results page
+    //for URL:
+    let total = roundData.totalRounds;
+    let current = roundData.currentRound;
+  })
+
+  socket.on("result page countdown", roundData => {
+    //print countdown to page
+  })
+
+  
 
 
  //BRACKit-MATCHUP-HANDLEBARS-FUNCTIONS

@@ -9,6 +9,8 @@ module.exports = function (io) {
     let roomId;
     let userId;
     let brackitId;
+    let matchupInterval;
+    let roundInterval;
 
     socket.on("join room", async (bracketId, name, incomingUserId) => {
       brackitId = bracketId;
@@ -37,11 +39,13 @@ module.exports = function (io) {
       socket.emit("people in room", users);
     })
 
+    //matchup functions
 
     const nextMatchup = function(roundData) {
       if (roundData.currentMatchup === roundData.totalMatchups) {
         if (roundData.currentRound === roundData.totalRounds) {
           //final screen
+          socket.emit("final local round over", roundData);
 
         } else {
           roundData.currentRound++;
@@ -56,11 +60,7 @@ module.exports = function (io) {
 
     }
 
-    let matchupInterval;
-
     socket.on("start matchup timer", roundData => {
-      //5 second timer
-      //
       // if (matchupInterval) {
       //   clearInterval(matchupInterval);
       // }
@@ -76,10 +76,42 @@ module.exports = function (io) {
 
     })
 
+    //round functions
+
+    const resultPageTimer = function(roundData) {
+      let resultTimeLeft = 10;
+      let resultInterval = setInterval(function() {
+        io.in(roomId).emit("result page countdown", --resultTimeLeft);
+        if (resultTimeLeft===0) {
+          clearInterval(resultInterval);
+          roundData.currentRound++;
+          roundData.totalMatchups = roundData.totalMatchups/2;
+          io.in(roomId).emit("load new round", roundData);
+        }
+      },1000)
+    }
+
     const newRoundStarted = function(roundData) {
         //master round timer
       //emits master round countdown
       //at end trigger results screen
+      const secondsPerChoice = 5;
+      let roundTimeLeft = roundData.totalMatchups * secondsPerChoice;
+
+      roundInterval = setInterval(function() {
+        io.in(roomId).emit("master round countdown", --roundTimeLeft);
+        console.log(`master round timer: ${roundTimeLeft}`)
+        if (roundTimeLeft===0) {
+          clearInterval(roundInterval);
+    
+          if (roundData.currentRound === roundData.totalRounds) {
+            io.in(roomId).emit("final results", roundData);
+          } else {
+            io.in(roomId).emit("get results", roundData);
+            resultPageTimer(roundData);
+          }
+        }
+      }, 1000)
 
     }
 
@@ -107,7 +139,7 @@ module.exports = function (io) {
 
 
     socket.on("vote", async (userId, chosenCand, roundData) => {
-      clearInterval(matchupInterval)
+      clearInterval(matchupInterval);
       try {
         await db.Vote.create({
           UserId: userId,
@@ -120,78 +152,6 @@ module.exports = function (io) {
       }
     })
 
-    socket.on("pair timer", (pairNumber, roundNumber, numberOfCandidates) => {
-      const totalRounds = Math.log(numberOfCandidates, 2);
-      const totalPairs = numberOfCandidates / (2 ** roundNumber);
-      const secondsPerChoice = 5;
-      let timeLeft = secondsPerChoice;
-      socket.emit("pair countdown", timeLeft);
-      let pairInterval = setInterval(() => {
-
-        if (timeLeft > 1) {
-          socket.emit("pair countdown", --timeLeft);
-
-        } else if (timeLeft === 1) {
-          socket.emit("pair countdown", --timeLeft);
-
-          if (pairNumber < totalPairs) {
-            socket.emit("new pair", ++pairNumber);
-          } else if (pairNumber === totalPairs) {
-            socket.emit("round done", roundNumber, totalRounds);
-          }
-
-          pairInterval.clearInterval();
-        }
-      }, 1000);
-    });
-
-    // socket.on("start bracket", numberOfCandidates => {
-    //   const secondsPerChoice = 5;
-    //   let roundNumber = 1;
-    //   let candidates = numberOfCandidates;
-    //   let pairsInRound = candidates / 2;
-    //   const totalRounds = Math.log(candidates, 2);
-
-    //   //
-    //   const roundTimer = function () {
-    //     //first cycle of fcn outside of timer
-    //     io.in(roomId).emit("start round", roundNumber);
-    //     let roundTimeLeft = pairsInRound * secondsPerChoice * 1000;
-    //     io.in(roomId).emit("master countdown", roundTimeLeft);
-
-    //     let timerInterval = setInterval(() => {
-    //       if (roundTimeLeft > 0) {
-    //         roundTimeLeft--;
-    //         io.in(roomId).emit("master countdown", roundTimeLeft);
-    //       } else {
-    //         timerInterval.clearInterval();
-    //       }
-    //     }, 1000);
-    //   };
-
-    //   const allRounds = function () {
-    //     let roundInterval = setInterval(() => {
-    //       if (roundNumber < totalRounds) {
-
-    //         roundNumber++;
-    //         candidates = candidates / 2;
-    //         pairsInRound = pairsInRound / 2;
-    //         roundTimer();
-
-    //       } else {
-    //         clearInterval(roundInterval);
-    //       }
-    //     }, pairsInRound * secondsPerChoice * 1000)
-    //   }
-
-    //   //first cycle of function outside of allRound timer
-    //   roundTimer();
-    //   allRounds();
-    // })
-
-    // setInterval(function() {
-    //     socket.emit('user left', userName);
-    // }, 1000);
 
     socket.on("disconnect", async () => {
       console.log(`${userName} at socket ${socketId} has disconnected.`);
