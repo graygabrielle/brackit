@@ -3,21 +3,20 @@
 {{>header}}
 
     <form> 
-        <label class="body-pos-3-a primary-text" for="admin-name">administrator name</label>
-        <input class="form-input-3-a user-input" type="text" name="admin-name" id="admin-name" placeholder="type here" required>
-        <label class="body-pos-3-b primary-text"for="brack-name">brackit question</label>
-        <input class="form-input-3-b user-input" type="text" placeholder="what do you want to know?" name="brack-name" id="brack-name" required>
-        <h5 class="body-pos-3-c primary-text">how many options</h5>
+        <label class="body-pos-3-a primary-text" for="admin-name">administrator name:</label>
+        <input class="form-input form-input-3-a user-input" type="text" name="admin-name" id="admin-name" placeholder="your name here..." required>
+        <label class="body-pos-3-b primary-text"for="brack-name">brackit question:</label>
+        <input class="form-input form-input-3-b user-input" type="text" placeholder="the question..." name="brack-name" id="brack-name" required>
+        <h5 class="body-pos-3-c primary-text"># of brackit options</h5>
 
         <div class="radio-btn-3">
         <input type="radio" id="four-cand" name="num-of-cand" value="4" required>
-        <label for="four-cand">4</label>
+        <label class="user-input radio" for="four-cand">4</label>
         <input type="radio" id="eight-cand" name="num-of-cand" value="8" required>
-        <label for="eight-cand">8</label>
+        <label class="user-input radio" for="eight-cand">8</label>
         <input type="radio" id="sixteen-cand" name="num-of-cand" value="16" required>
-        <label for="sixteen-cand">16</label></div>
-        <input class="submit-btn-3 brackit-coral" type="submit" id="submit" value="submit">
-
+        <label class="user-input radio" for="sixteen-cand">16</label></div>
+        <button class="submit-btn-3 brackit-coral primary-text" id="submit">submit</button>
     </form>
 
 </section>

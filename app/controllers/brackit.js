@@ -22,7 +22,7 @@ router.get("/await-results", function (req, res) {
     res.render('await-results');
 })
 
-router.get("/results/:brackitId/:numRounds/:roundNumber", function(req, res) {
+router.get("/results/brack/:brackitId/round/:roundNumber/of/:numRounds", function(req, res) {
 
     const brackitId = req.params.brackitId;
     const numRounds = req.params.numRounds;
@@ -111,13 +111,13 @@ router.get("/results/:brackitId/:numRounds/:roundNumber", function(req, res) {
               });
               if (i === matchups.length - 1) {
                 console.log("display results for this round");
-                //res.render('brackit-round-results', {});
+                res.render('brackit-round-results', {});
               }
             }
 
         } else {
             console.log("display final results");
-            //res.render('brackit-final-results', {});
+            res.render('brackit-final-results', {});
         }
 
       });

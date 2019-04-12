@@ -32,6 +32,8 @@ body {
   
 }
 
+
+
 /* =================================================================*/
 /* =========================== FONTS ===============================*/
 /* =================================================================*/
@@ -60,7 +62,7 @@ body {
   font-weight: 600;
   font-size: 15px;
   line-height: normal;
-
+  text-align: center;
   color: #483C93;
 }
 
@@ -71,7 +73,8 @@ body {
   font-size: 15px;
   line-height: normal;
 
-  color: rgba(72, 60, 147, 0.557);
+  text-align: center;
+  color: rgba(72, 60, 147, 0.5);
 }
 
 /* =================================================================*/
@@ -302,9 +305,19 @@ body {
   top: 229px;
 }
 
+.form-input {
+  line-height: 2;
+  border-bottom: 1px solid rgba(72, 60, 147, 0.5);
+}
+
+.form-input:focus {
+  border-bottom: 2px solid #483C93;
+}
+
 .form-input-3-a {
   position: absolute;
-  left: 127px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 264px;
 }
 
@@ -334,6 +347,10 @@ body {
   left: 50%;
   transform: translateX(-50%);
   top: 478px;
+}
+
+.radio {
+  margin-right: 10vw;
 }
 
 .submit-btn-3 {

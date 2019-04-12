@@ -69,8 +69,9 @@ $(document).ready(function () {
   socket.on("local round over", roundData => {
     //render waiting screen
     //start to listen to global countdown/print global countdown
+    $("#insert").load(`/brackit/await-results #grab`);
     socket.on("master round countdown", timeLeft =>{
-
+      $(".timer").text(timeLeft);
     })
 
   })
@@ -92,24 +93,26 @@ $(document).ready(function () {
   socket.on("get results", roundData => {
     //render results page
     //for URL:
-    let total = roundData.totalRounds;
-    let current = roundData.currentRound;
+    console.log("getting results");
+
+    $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
   })
+
 
   socket.on("final results", roundData => {
     //render results page
     //for URL:
-    let total = roundData.totalRounds;
-    let current = roundData.currentRound;
+    //should be FINAL results
+    $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
   })
 
-  socket.on("result page countdown", roundData => {
+
+  socket.on("result page countdown", timeLeft => {
     //print countdown to page
+    $(".timer").text(timeLeft);
   })
 
   
-
-
  //BRACKit-MATCHUP-HANDLEBARS-FUNCTIONS
 
   $(document).on("click", ".choice", function () {
@@ -145,45 +148,6 @@ $(document).ready(function () {
       socket.emit("vote", userId, chosenCand, localRoundInfo);
     }
   })
-
-////////////
-
-  // socket.on("send new pair", candidates => {
-  //   let timeout = setTimeout(() => {
-  //     $(".cand1").text(candidates[0].Candidate.name);
-  //     $(".cand2").text(candidates[1].Candidate.name);
-
-  //   }, 10);
-  // })
-
-
-
-
-
-  // let timeInRound;
-
-  // // $(document).ready(function() {
-  // //     $('body').load("/ #test", function(text){
-  // //         //$("body").append(text);
-  // //         console.log(text)
-  // //     });
-  // // })
-
-  // //on start button click
-  // socket.emit("start bracket", numberOfCandidates);
-
-  // socket.on("start round", roundNumber => {
-  //   //get request - bracket page
-  //   //round whatever
-  //   //set interval 1000 seconds 5 passes for each pair
-  //   socket.emit("pair timer", pairNumber, roundNumber, numberOfCandidates);
-  // });
-
-  // socket.on("master countdown", timeLeft => {
-  //   timeInRound = timeLeft;
-  // })
-
-
 
 
   // socket.on("error", err => {
