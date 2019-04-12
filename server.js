@@ -37,8 +37,6 @@ require("./app/controllers/socket.js")(io);
 db.sequelize.sync({
     force: true
 }).then(function () {
-
-
     //seeds
     const seed = async function () {
         const admin = await db.Admin.create({
@@ -52,7 +50,7 @@ db.sequelize.sync({
             AdminId: adminId
         });
         const bracketId = bracket.id;
-
+ 
         const user = await db.User.create({
             BrackitId: bracketId,
             displayName: adminName,
@@ -78,8 +76,8 @@ db.sequelize.sync({
             name: "option 4",
             color: "red"
         }]);
-
-        const matchup = await db.Matchup.bulkCreate([{
+ 
+        await db.Matchup.bulkCreate([{
             CandidateId: candidate[0].id,
             roundNumber: 1,
             matchup: 1
@@ -96,6 +94,7 @@ db.sequelize.sync({
             roundNumber: 1,
             matchup: 2
         }])
+
         // const votes = await db.Vote.bulkCreate([{
         //         UserId: userId,
         //         CandidateId: candidate[0].id,
@@ -107,28 +106,59 @@ db.sequelize.sync({
         //         roundNumber: 1
         //     }
         // ])
+      
+//               await db.Vote.bulkCreate([
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[0].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[2].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 2
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 2
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 2
+//             }
+//         ])
     }
 
-    seed().then(() => {
-        let matchupNumber = 1;
-        let roundNumber = 1;
-        let bracketId = 1;
 
-        db.sequelize.query(`SELECT matchup, roundNumber, brack.name "question", cand.name "candidateName", cand.id "candidateId", brack.id "brackitId" FROM Matchups mat INNER JOIN Candidates cand ON cand.id = mat.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE matchup=${matchupNumber} AND roundNumber=${roundNumber} AND brack.id=${bracketId};`, 
-        {
-            type: db.sequelize.QueryTypes.SELECT
-        }).then((results, metadata) => {
-            console.log(results);
-        }).catch((error) => {
-            console.log(error)
-        })
-
-        }
-    );
-
-
-
-
+ 
+    seed();
 
 
     http.listen(PORT, function () {

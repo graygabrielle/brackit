@@ -3,6 +3,7 @@
 
 <section>
     <h5 class="brackit-info" data-id="{{BrackitId}}">{{question}}</h5>
+
     {{#if isAdmin}}{{>admin-waiting-room}}{{else}}{{>participant-waiting-room}}{{/if}}
 
     {{!-- drop participants into here as they join --}}
@@ -13,3 +14,4 @@
 </section>
 </div>
 <script src="/js/socket.js"></script>
+

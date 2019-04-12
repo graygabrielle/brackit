@@ -17,7 +17,6 @@ router.get("/:BrackitId/waiting-room/:userId/:displayName/:admin*?", function (r
     if (req.params.admin) {
         isAdmin = true;
     }
-
         //this will need to be a database call instead of just from URL - also necessary to get admin name.  can join bracket db with admin on admin id and pass obj.
 
         const displayName = req.params.displayName;
