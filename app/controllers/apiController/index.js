@@ -78,7 +78,8 @@ router.post("/candidates", async function(req, res) {
     const newCandidate = req.body;
     const response = await db.Candidate.create({
       BrackitId: newCandidate.BrackitId,
-      name: newCandidate.name
+      name: newCandidate.name,
+      color: newCandidate.color
     });
     res.json(response);
   } catch(e) {

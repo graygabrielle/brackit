@@ -18,6 +18,7 @@ $(document).ready(function() {
     for (let i = 0; i < candidates.length; i++) {
       let cand = $("<p>");
       cand.text(candidates[i]);
+      cand.addClass(`cand-${i + 1}`);
       $(".candidates").append(cand);
     }
 
@@ -45,7 +46,8 @@ $(document).ready(function() {
         for (let i = 0; i < candidates.length; i++) {
           const newCandidate = {
           BrackitId: BrackitId,
-          name: candidates[i]
+          name: candidates[i],
+          color: `cand-${i + 1}`
           };
           // Post the candidates
           $.post("/api/candidates", newCandidate)

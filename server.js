@@ -62,19 +62,19 @@ db.sequelize.sync({
         const candidate = await db.Candidate.bulkCreate([{
             BrackitId: bracketId,
             name: "option 1",
-            color: "purple"
+            color: "cand-1"
         }, {
             BrackitId: bracketId,
             name: "option 2",
-            color: "white"
+            color: "cand-2"
         }, {
             BrackitId: bracketId,
             name: "option 3",
-            color: "hello"
+            color: "cand-3"
         }, {
             BrackitId: bracketId,
             name: "option 4",
-            color: "red"
+            color: "cand-4"
         }]);
  
         await db.Matchup.bulkCreate([{
