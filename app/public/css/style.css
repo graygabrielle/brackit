@@ -306,6 +306,7 @@ body {
 .form-input {
   line-height: 2;
   border-bottom: 1px solid rgba(72, 60, 147, 0.5);
+  padding: 0 10vw;
 }
 
 .form-input:focus {
