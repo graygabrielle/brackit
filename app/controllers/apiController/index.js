@@ -78,7 +78,8 @@ router.post("/candidates", async function(req, res) {
     const newCandidate = req.body;
     const response = await db.Candidate.create({
       BrackitId: newCandidate.BrackitId,
-      name: newCandidate.name
+      name: newCandidate.name,
+      color: newCandidate.color
     });
     res.json(response);
   } catch(e) {
@@ -128,8 +129,7 @@ router.post("/matchups/roundOne", async function(req, res) {
 
   try {
 
-    const candidates = req.body.candidates;
-    console.log("candidates:", candidates);
+    const candidates = req.body.postedCandidates;
 
     const powerOfTwo = Math.log(candidates.length)/Math.log(2);
     const numRounds = powerOfTwo | 0;
@@ -143,8 +143,7 @@ router.post("/matchups/roundOne", async function(req, res) {
 
     console.log("matchups:", matchups);
 
-    const roundNumber = parseInt(req.params.roundNumber);
-    console.log("roundNumber:", roundNumber);
+    const roundNumber = 1;
     
     let response = [];
 

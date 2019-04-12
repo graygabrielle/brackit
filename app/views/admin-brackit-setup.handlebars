@@ -1,21 +1,24 @@
+<section class="container">
+{{>color-background}}
 {{>header}}
 
-<section>
-    <form>
-        <input type="text" name="admin-name" id="admin-name" required><br>
-        <label for="admin-name">administrator name</label><br>
-        <input type="text" name="brack-name" id="brack-name" required><br>
-        <label for="brack-name">brackit name</label><br>
-        <h5>how many options</h5>
-        <input type="radio" id="four-cand" name="num-of-cand" value="4">
-        <label for="four-cand">4</label>
-        <input type="radio" id="eight-cand" name="num-of-cand" value="8">
-        <label for="eight-cand">8</label>
-        <input type="radio" id="sixteen-cand" name="num-of-cand" value="16">
-        <label for="sixteen-cand">16</label>
-        <input type="submit" id="submit" value="submit">
+    <form> 
+        <label class="body-pos-3-a primary-text" for="admin-name">administrator name</label>
+        <input class="form-input-3-a user-input" type="text" name="admin-name" id="admin-name" placeholder="type here" required>
+        <label class="body-pos-3-b primary-text"for="brack-name">brackit question</label>
+        <input class="form-input-3-b user-input" type="text" placeholder="what do you want to know?" name="brack-name" id="brack-name" required>
+        <h5 class="body-pos-3-c primary-text">how many options</h5>
+
+        <div class="radio-btn-3">
+        <input type="radio" id="four-cand" name="num-of-cand" value="4" required>
+        <label class="primary-text" for="four-cand">4</label>
+        <input type="radio" id="eight-cand" name="num-of-cand" value="8" required>
+        <label class="primary-text" for="eight-cand">8</label>
+        <input type="radio" id="sixteen-cand" name="num-of-cand" value="16" required>
+        <label class="primary-text" for="sixteen-cand">16</label></div>
+        <input class="submit-btn-3 brackit-coral primary-text" type="submit" id="submit" value="submit">
 
     </form>
-</section>
 
+</section>
 <script src="/js/admin-brackit-setup.js" type="text/javascript"></script>
