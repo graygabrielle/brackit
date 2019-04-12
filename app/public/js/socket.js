@@ -79,7 +79,9 @@ $(document).ready(function () {
   socket.on("final local round over", roundData => {
     //render waiting screen
     //start to listen to global countdown/print global countdown
+    $("#insert").load(`/brackit/await-results #grab`);
     socket.on("master round countdown", timeLeft =>{
+      $(".timer").text(timeLeft);
 
     })
 
@@ -103,7 +105,7 @@ $(document).ready(function () {
     //render results page
     //for URL:
     //should be FINAL results
-    $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
+    $("#insert").load(`/brackit/final-results #grab`);
   })
 
 
@@ -137,7 +139,7 @@ $(document).ready(function () {
     $(otherCand).addClass("inactive");
 
     chosenCand = $(this).attr("data-id");
-    console.timeLog(chosenCand);
+    console.log(chosenCand);
   })
 
   $(document).on("click", ".pick-cand", () => {

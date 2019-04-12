@@ -88,7 +88,6 @@ module.exports = function (io) {
           roundData.currentRound++;
           roundData.totalMatchups = roundData.totalMatchups / 2;
           io.in(roomId).emit("load new round", roundData);
-          newRoundStarted(roundData);
         }
       }, 1000)
     }
