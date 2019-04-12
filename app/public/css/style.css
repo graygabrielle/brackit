@@ -733,7 +733,64 @@ body {
 
 }
 
-/* =================================================================*/
+/* ======================matchup===========================================*/
+.matchup-cand-a{
+  position: absolute;
+  width: 328.63px;
+  line-height: 24px;
+  left: -9.37px;
+  top: 55vh;
+  background: #FA4DA7;
+  /* candidates */
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(1.5deg);
+}
+
+.matchup-cand-b{
+
+  position: absolute;
+  width: 332.43px;
+  line-height: 24px;
+  left: 56.42px;
+  top: 65vh;
+  background: #FFDB00;
+  /* candidates */
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: matrix(1, -0.01, 0.02, 1, 0, 0);
+}
+
+.vote-btn {
+
+  position: absolute;
+  padding: 0 11vw;
+  top: 75vh;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.round-pos {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 0 12vw;
+  top: 85vh;
+}
+
+.timer-pos{
+  position: absolute;
+  left: -4vw;
+  text-align: center;
+  line-height: 1.75;
+  width: 5vw;
+  top: 85vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: matrix(1, -0.01, 0.02, 1, 0, 0);
+}
+
+
 /* ============================= OTHER =============================*/
 /* =================================================================*/
 
@@ -746,9 +803,9 @@ body {
 }
 
 .active {
-    color: red;
+    transform: scale(1.2);
 }
 
 .inactive {
-    color: blue;
+    transform: scale(1);
 }
