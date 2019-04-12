@@ -1,20 +1,106 @@
 const router = require("express").Router();
+const db = require("../models");
 
-router.get("/play", function(req, res) {
-    res.render('brackit-matchup', {});
+router.get("/play/brack/:brackitId/round/:roundNumber/matchup/:matchupNumber", function (req, res) {
+    const roundNumber = req.params.roundNumber;
+    const matchupNumber = req.params.matchupNumber;
+    const bracketId = req.params.brackitId;
+    db.sequelize.query(`SELECT matchup, roundNumber, brack.name "question", cand.name "candidateName", cand.id "candidateId", brack.id "brackitId" FROM Matchups mat INNER JOIN Candidates cand ON cand.id = mat.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE matchup=${matchupNumber} AND roundNumber=${roundNumber} AND brack.id=${bracketId}`,
+    {
+        type: db.sequelize.QueryTypes.SELECT
+    }).then((candidates, metadata) => {
+        console.log(candidates);
+        res.render('brackit-matchup', {candidates})
+    }).catch((error) => {
+        console.log(error)
+    })
 })
 
 router.get("/await-results", function(req, res) {
     res.render('await-results', {});
 })
 
-router.get("/results", function(req, res) {
-    res.render('brackit-round-results', {});
+router.get("/results/:brackitId/:numRounds/:roundNumber", function(req, res) {
+
+    const brackitId = req.params.brackitId;
+    const numRounds = req.params.numRounds;
+    const roundNumber = req.params.roundNumber;
+
+    console.log(brackitId);
+    console.log(numRounds);
+    console.log(roundNumber);
+
+    function mostFreqCand(arr) {
+      var obj = {}, mostFreq = 0, which = [];
+
+      arr.forEach(ea => {
+        if (!obj[ea]) {
+          obj[ea] = 1;
+        } else {
+          obj[ea]++;
+        }
+
+        if (obj[ea] > mostFreq) {
+          mostFreq = obj[ea];
+          which = [ea];
+        } else if (obj[ea] === mostFreq) {
+          which.push(ea);
+        }
+      });
+
+      return which;
+    }
+
+    async function voteCounter(numRounds, roundNumber) {
+      await db.sequelize.query(`SELECT matchup, vot.roundNumber, brack.name 'question', cand.name 'candidateName', cand.id 'candidateId', brack.id 'brackitId' FROM Votes vot INNER JOIN Matchups mat ON mat.roundNumber = vot.roundNumber AND mat.CandidateId = vot.CandidateId INNER JOIN Candidates cand ON cand.id = vot.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE brack.id=${brackitId} AND vot.roundNumber=${roundNumber}`,
+      {
+        type: db.sequelize.QueryTypes.SELECT
+      }).then((votes, metadata) => {
+        
+        console.log(votes);
+
+        const roundsRemaining = numRounds - roundNumber;
+        const numMatchups = 2 ** roundsRemaining;
+        console.log("numMatchups:", numMatchups);
+
+        const candidateVotes = [];
+        const roundWinners = [];
+
+        for (let i = 1; i <= numMatchups; i++) {
+          candidateVotes.push([]);
+        }
+
+        for (let i = 0; i < votes.length; i++) {
+          candidateVotes[votes[i].matchup - 1].push(votes[i].candidateId);
+        }
+        console.log("Candidate votes by matchup:", candidateVotes);
+
+        for (let i = 0; i < candidateVotes.length; i++) {
+          roundWinners.push(mostFreqCand(candidateVotes[i]));
+        }
+        console.log("Tentative winners:", roundWinners);
+
+        for (let i = 0; i < roundWinners.length; i++) {
+          roundWinners[i] = roundWinners[i][Math.floor(Math.random() * roundWinners[i].length)];
+          if (i === roundWinners.length - 1) {
+            console.log("Winners after tiebreaker:", roundWinners);
+            winnersOfThisRound = roundWinners;
+          }
+        }
+
+        console.log("winners of this round:", winnersOfThisRound);
+
+        //res.render('brackit-round-results', {});
+
+      });
+    }
+
+    voteCounter(numRounds, roundNumber);
+
 })
 
 router.get("/final-results", function(req, res) {
     res.render('brackit-final-results', {});
 })
-
 
 module.exports = router;

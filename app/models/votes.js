@@ -3,10 +3,6 @@ module.exports = function (sequelize, DataTypes) {
         roundNumber: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        vote: {
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
     })
 

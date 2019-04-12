@@ -38,9 +38,8 @@ db.sequelize.sync({
     force: true
 }).then(function () {
 
-
-     //seeds
-     const seed = async function () {
+    //seeds
+    const seed = async function () {
         const admin = await db.Admin.create({
             displayName: "Admin"
         });
@@ -52,13 +51,15 @@ db.sequelize.sync({
             AdminId: adminId
         });
         const bracketId = bracket.id;
-
+ 
         const user = await db.User.create({
             BrackitId: bracketId,
             displayName: adminName,
             isAdmin: true
           });
-
+ 
+        const userId = user.id;
+ 
         const candidate = await db.Candidate.bulkCreate([{
             BrackitId: bracketId,
             name: "option 1"
@@ -72,29 +73,64 @@ db.sequelize.sync({
             BrackitId: bracketId,
             name: "option 4"
         }]);
-
-        const matchup = await db.Matchup.bulkCreate([{
+ 
+        await db.Matchup.bulkCreate([{
             CandidateId: candidate[0].id,
             roundNumber: 1,
-            matchup: 1           
+            matchup: 1
         }, {
             CandidateId: candidate[1].id,
             roundNumber: 1,
-            matchup: 1           
+            matchup: 1
         }, {
             CandidateId: candidate[2].id,
             roundNumber: 1,
-            matchup: 2           
+            matchup: 2
         }, {
             CandidateId: candidate[3].id,
             roundNumber: 1,
-            matchup: 2           
+            matchup: 2
         }])
+        await db.Vote.bulkCreate([
+            {
+                UserId: userId,
+                CandidateId: candidate[0].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[3].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[3].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[2].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[2].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[1].id,
+                roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[1].id,
+                roundNumber: 1
+            }
+        ])
     }
-
+ 
     seed();
-
-
 
     http.listen(PORT, function () {
         console.log(`App listening on http://localhost:${PORT}`)
