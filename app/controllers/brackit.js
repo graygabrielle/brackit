@@ -18,7 +18,7 @@ router.get("/play/brack/:brackitId/round/:roundNumber/matchup/:matchupNumber", f
 
 //do we need round number for this?
 router.get("/await-results", function (req, res) {
-    res.render('await-results', {});
+    res.render('await-results');
 })
 
 //variable path name with bracket id
