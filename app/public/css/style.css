@@ -181,9 +181,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   top: 30vh;
-
   color: #00A2D3;
-}
+ }
 
 .top-colors{
   position: absolute;
@@ -642,9 +641,7 @@ body {
   color: #483C93
 }
 
-/* ================ screen 5 positioning & shapes ================ */
-
-
+/*============================codes screen (5)===============================================*/
 .body-pos-5 {
   position: absolute;
   left: 50%;
@@ -687,6 +684,16 @@ body {
   transform: translateX(-50%);
   width: 80vw;
   top: 76vh;
+
+/* ================ screen WAITING ROOM positioning & shapes ================ */
+
+.body-pos-waiting-1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 287px;
+  height: 37px;
+  top: 37vh;
   text-align: center;
 }
 

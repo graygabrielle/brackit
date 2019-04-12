@@ -1,9 +1,9 @@
 <div id="insert">
-{{>header}}
 
 <section>
-    <h5 class="brackit-info" data-id="{{BrackitId}}">{{question}}</h5>
-
+  {{>color-background}}
+  {{>question-header}}
+  {{>header}}
     {{#if isAdmin}}{{>admin-waiting-room}}{{else}}{{>participant-waiting-room}}{{/if}}
 
     {{!-- drop participants into here as they join --}}
