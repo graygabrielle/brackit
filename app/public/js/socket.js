@@ -5,16 +5,8 @@ $(document).ready(function () {
   console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
-  let chosenCand;
+  let chosenCand = null;
   let socket = io();
-  // let round = {
-  //   current: 1,
-  //   total: 2,
-  //   matchup: {
-  //     current: 1,
-  //     total: 2
-  //   }
-  // }
   let localRoundInfo;
   let colorNum = 1;
 
@@ -42,7 +34,8 @@ $(document).ready(function () {
     }).text(joinerName);
     $(".participants").append(newName);
     colorNum++;
-  })
+  });
+
 
   socket.on("user left", (name, id) => {
     console.log(`${name} has left the room.`);
@@ -110,7 +103,9 @@ $(document).ready(function () {
     //render results page
     //for URL:
     //should be FINAL results
-    $("#insert").load(`/brackit/final-results #grab`);
+    // $("#insert").load(`/brackit/final-results #grab`);
+    $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
+    
   })
 
 
@@ -153,6 +148,7 @@ $(document).ready(function () {
     
     if (chosenCand) {
       socket.emit("vote", userId, chosenCand, localRoundInfo);
+      chosenCand = null;
     }
   })
 

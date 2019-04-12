@@ -80,7 +80,7 @@ module.exports = function (io) {
     //round functions
 
     const resultPageTimer = function (roundData) {
-      let resultTimeLeft = 10;
+      let resultTimeLeft = 5;
       let resultInterval = setInterval(function () {
         io.in(roomId).emit("result page countdown", --resultTimeLeft);
         if (resultTimeLeft === 0) {
