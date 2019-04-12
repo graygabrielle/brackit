@@ -5,17 +5,10 @@ $(document).ready(function () {
   console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
-  let chosenCand;
+  let chosenCand = null;
   let socket = io();
-  // let round = {
-  //   current: 1,
-  //   total: 2,
-  //   matchup: {
-  //     current: 1,
-  //     total: 2
-  //   }
-  // }
   let localRoundInfo;
+  let colorNum = 1;
 
   socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
@@ -25,19 +18,24 @@ $(document).ready(function () {
 
     users.forEach(function (elem) {
       let newName = $("<p>", {
+        "class": `cand-${colorNum}`,
         "data-id": `${elem.id}`
       }).text(elem.displayName);
       $(".participants").append(newName);
+      colorNum++;
     })
   })
-
+ 
   socket.on("new join", (joinerName, joinerId) => {
     console.log(`${joinerName} just joined!`);
     let newName = $("<p>", {
+      "class": `cand-${colorNum}`,
       "data-id": `${joinerId}`
     }).text(joinerName);
     $(".participants").append(newName);
+    colorNum++;
   });
+
 
   socket.on("user left", (name, id) => {
     console.log(`${name} has left the room.`);
@@ -46,7 +44,7 @@ $(document).ready(function () {
   });
 
   //start first round function
-  $("#start").on("click", function () {
+  $(document).on("click", "#start", function () {
     socket.emit("begin bracket");
   })
 
@@ -79,7 +77,9 @@ $(document).ready(function () {
   socket.on("final local round over", roundData => {
     //render waiting screen
     //start to listen to global countdown/print global countdown
+    $("#insert").load(`/brackit/await-results #grab`);
     socket.on("master round countdown", timeLeft =>{
+      $(".timer").text(timeLeft);
 
     })
 
@@ -103,7 +103,9 @@ $(document).ready(function () {
     //render results page
     //for URL:
     //should be FINAL results
+    // $("#insert").load(`/brackit/final-results #grab`);
     $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
+    
   })
 
 
@@ -137,7 +139,7 @@ $(document).ready(function () {
     $(otherCand).addClass("inactive");
 
     chosenCand = $(this).attr("data-id");
-    console.timeLog(chosenCand);
+    console.log(chosenCand);
   })
 
   $(document).on("click", ".pick-cand", () => {
@@ -146,6 +148,7 @@ $(document).ready(function () {
     
     if (chosenCand) {
       socket.emit("vote", userId, chosenCand, localRoundInfo);
+      chosenCand = null;
     }
   })
 

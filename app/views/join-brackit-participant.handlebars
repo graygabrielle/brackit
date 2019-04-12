@@ -1,11 +1,10 @@
+{{>color-background}}
 {{>header}}
-<section>
-    <div class="instructions">
-        <h5>what do you want your name to be?</h5>
-    </div>
-    <input type="text" name="username" data-brackit-id={{BrackitId}} id="username" placeholder="johnny apple s33d" required>
-    <label for="username">username</label>
-    <button id="submit">submit</button>
-</section>
+
+<h5 class="primary-text body-pos-7">enter a username below. we’ll only use it for this <span class="title-text coral-text">brack[<span class="primary-text blue-text">it</span>]</span>. </h5>
+<input class="form-input user-input input-pos-6" type="text" name="username" data-brackit-id={{BrackitId}} id="username" placeholder="johnny apple s33d" required>
+<label class="user-input" for="username">username</label>
+<button class="brackit-coral primary-text submit-btn-6" id="submit">join</button>
+
 
 <script src="/js/join-brackit-participant.js" type="text/javascript"></script>
