@@ -114,11 +114,6 @@ db.sequelize.sync({
             },
             {
                 UserId: userId,
-                CandidateId: candidate[2].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
                 CandidateId: candidate[1].id,
                 roundNumber: 1
             },
@@ -126,6 +121,21 @@ db.sequelize.sync({
                 UserId: userId,
                 CandidateId: candidate[1].id,
                 roundNumber: 1
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[1].id,
+                roundNumber: 2
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[3].id,
+                roundNumber: 2
+            },
+            {
+                UserId: userId,
+                CandidateId: candidate[3].id,
+                roundNumber: 2
             }
         ])
     }

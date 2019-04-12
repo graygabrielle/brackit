@@ -84,13 +84,39 @@ router.get("/results/:brackitId/:numRounds/:roundNumber", function(req, res) {
           roundWinners[i] = roundWinners[i][Math.floor(Math.random() * roundWinners[i].length)];
           if (i === roundWinners.length - 1) {
             console.log("Winners after tiebreaker:", roundWinners);
-            winnersOfThisRound = roundWinners;
           }
         }
 
-        console.log("winners of this round:", winnersOfThisRound);
+        if (roundNumber !== numRounds) {
+            const nextRound = parseInt(roundNumber) + 1;
+            console.log("nextRound:", nextRound);
+    
+            const remainingCandidates = roundWinners;
 
-        //res.render('brackit-round-results', {});
+            const matchups = [];
+
+            for (let i = 0; i < remainingCandidates.length/2; i++) {
+              matchups.push([remainingCandidates[i], i + 1], [remainingCandidates[remainingCandidates.length - 1 - i], i + 1]);
+            }
+
+            console.log("matchups:", matchups);
+
+            for (let i = 0; i < matchups.length; i++) { 
+              db.Matchup.create({
+                CandidateId: parseInt(matchups[i][0]),
+                matchup: matchups[i][1],
+                roundNumber: nextRound
+              });
+              if (i === matchups.length - 1) {
+                console.log("display results for this round");
+                //res.render('brackit-round-results', {});
+              }
+            }
+
+        } else {
+            console.log("display final results");
+            //res.render('brackit-final-results', {});
+        }
 
       });
     }
