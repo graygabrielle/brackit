@@ -176,6 +176,15 @@ body {
   top: 597px;
 }
 
+/* ======this extends color pattern on bottom of screen for larger phones */
+.bars-layer-1-btm-lg {
+  position: absolute;
+  left: 507.78px;
+  top: 831.19px;
+  
+  transform: rotate(-174.45deg);
+}
+
 /* ================ screen 1 positioning & shapes ================ */
 
 
@@ -188,7 +197,7 @@ body {
 }
 
 .title-pos-2 {
-left: 47px;
+  left: 47px;
   top: 165px;
 }
 
@@ -228,49 +237,37 @@ left: 47px;
 
 .body-pos-3-a {
   position: absolute;
-  width: 283px;
-  height: 40px;
-  left: 47px;
+  left: 103px;
   top: 229px;
 }
 
 .form-input-3a {
   position: absolute;
-  width: 158px;
-  height: 40px;
-  left: 110px;
-  top: 284px;
+  left: 127px;
+  top: 264px;
 }
 
 .body-pos-3-b {
   position: absolute;
-  width: 109px;
-  height: 19px;
   left: 134px;
   top: 331px;
 }
 
 .form-input-3b {  
   position: absolute;
-  width: 264px;
-  height: 40px;
-  left: 57px;
-  top: 385px;
+  left: 75px;
+  top: 365px;
 }
 
 .body-pos-3-c {
   position: absolute;
-  width: 286px;
-  height: 40px;
   left: 46px;
   top: 430px;
 }
 
 .radio-btn-3 {
   position: absolute;
-  width: 286px;
-  height: 40px;
-  left: 45px;
+  left: 97px;
   top: 478px;
 }
 
@@ -279,7 +276,7 @@ left: 47px;
   width: 115px;
   height: 24px;
   left: 249px;
-  top: 557px;
+  top: 553px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
 }
@@ -288,8 +285,6 @@ left: 47px;
 
 .body-pos-4-a {
   position: absolute;
-  width: 222px;
-  height: 40px;
   left: 44px;
   top: 252px;
 }
@@ -308,8 +303,8 @@ left: 47px;
   position: absolute;
   width: 198px;
   height: 40px;
-  left: 89px;
-  top: 302px;
+  left: 99px;
+  top: 282px;
 }
 
 .submit-btn-4 {
@@ -324,80 +319,80 @@ left: 47px;
 
 .cand-1-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: -53px;
+  top: 383px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-1.5deg);
 }
 
 .cand-2-4 {
   position: absolute;
-  width: 186px;
+  width: 240px;
   height: 24px;
-  left: -8px;
-  top: 445px;
+  left: -60px;
+  top: 447px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(4.28deg);
 }
 
 .cand-3-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: -71px;
+  top: 507px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(0.2deg);
 }
 
 .cand-4-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: -51px;
+  top: 556px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(1.5deg);
 }
 
 .cand-5-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: 203px;
+  top: 406px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(5.56deg);
 }
 
 .cand-6-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: 201px;
+  top: 457px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(3.73deg);
 }
 
 .cand-7-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: 190px;
+  top: 500px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(2.75deg);
 }
 
 .cand-8-4 {
   position: absolute;
-  width: 196px;
+  width: 240px;
   height: 24px;
-  left: -11px;
-  top: 384px;
+  left: 208px;
+  top: 556px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(1.5deg);
 }
