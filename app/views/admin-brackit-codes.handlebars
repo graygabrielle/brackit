@@ -1,17 +1,15 @@
+{{>color-background}}
+{{>question-header}}
 {{>header}}
 
-<section>
-    <div class="instructions">
-        <h5>to get your brack[it] started, copy your ID and the participant ID below to share with your friends.</h5>
-    </div>
-    <div class="codes">
-        <h5>admin: <span id="admin-code">{{adminCode}}</span></h5>
-        <h5>participants: <span id="particip-code">{{BrackitId}}</span></h5>
-    </div>
-    <div class="next-step">
-        <h5>
-            then, head over to:
-            <a href="/join"><span id="join-url">brackit.com/join</span></a>
-        </h5>
-    </div>
-</section>
+
+    <h5 class="primary-text body-pos-5">to get your <span class="title-text coral-text">brack[<span class="primary-text blue-text">it</span>]</span> started, copy your ID and the participant ID below to share with your friends.</h5>
+
+
+    <h5 class="title-text admin-pos-5">admin: <span class="title-text coral-text" id="admin-code">{{adminCode}}</span></h5>
+    <h5 class="title-text participant-pos-5">participants: <span class="primary-text coral-text" id="particip-code">{{BrackitId}}</span></h5>
+
+
+    <h5 class="primary-text directions-pos-5">then, head over to:</h5>
+    <a class="title-text coral-text link-pos-5" href="/join"><span id="join-url">brackit.com/join</span></a>
+
