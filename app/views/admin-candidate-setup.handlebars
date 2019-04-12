@@ -1,17 +1,39 @@
-{{>header}}
 
-<section>
-    <p>{{question}}</p>
+<section class='container'>
+  {{>color-background}}
+  {{>header}}
+  {{>question-header}}
+
     {{!-- drop candidates into here when added --}}
-
-    <input type="text" class="visible" name="new-cand" id="new-cand" placeholder="add an option" required>
-    {{!-- this add button would become hidden and be replaced with submit button when correct number of candidates has been added --}}
-    <button class="visible" data-cand-num="{{numberCandidates}}" id="add-cand">add option</button>
+    <label class="body-pos-4-a primary-text" for="admin-name">
+      add entries below then kindly tap
+    </label>
+    <button class="visible add-btn-4 brackit-blue primary-text" data-cand-num="{{numberCandidates}}" id="add-cand">
+      add
+    </button>
+    <input type="text" class="visible form-input-4a" name="new-cand" id="new-cand" placeholder="add an option" required>
+    {{!-- this add button would become hidden and be replaced with submit button when
+     correct number of candidates has been added --}}
     {{!-- this submit button would be hidden until the correct number of candidates has been added --}}
-    <button data-brack-num={{BrackitId}} class="invisible" id="submit">submit all</button>
+    <button data-brack-num={{BrackitId}} class="invisible submit-btn-4 brackit-coral primary-text" id="submit">submit all</button>
 
     <div class="candidates">
-
+      {{!-- <p class='cand-1 candidate-1'>option 1</p>
+      <p class='cand-2 candidate-2'>option 2</p>
+      <p class='cand-3 candidate-3'>option 3</p>
+      <p class='cand-4 candidate-4'>option 4</p>
+      <p class='cand-5 candidate-5'>option 5</p>
+      <p class='cand-6 candidate-6'>option 6</p>
+      <p class='cand-7 candidate-7'>option 7</p>
+      <p class='cand-8 candidate-8'>option 8</p>
+      <p class='cand-9 candidate-9'>option 9</p>
+      <p class='cand-10 candidate-10'>option 10</p>
+      <p class='cand-11 candidate-11'>option 11</p>
+      <p class='cand-12 candidate-12'>option 12</p>
+      <p class='cand-13 candidate-13'>option 13</p>
+      <p class='cand-14 candidate-14'>option 14</p>
+      <p class='cand-15 candidate-15'>option 15</p>
+      <p class='cand-16 candidate-16'>option 16</p> --}}
     </div>
 </section>
 

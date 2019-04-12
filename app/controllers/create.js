@@ -24,4 +24,16 @@ router.get("/codes/:BrackitId/:adminCode", function(req, res) {
 })
 
 
+router.get("/add-candidates/:BrackitId/:numberCandidates", async function(req, res) {
+  const BrackitId = req.params.BrackitId;
+  const numberCandidates = req.params.numberCandidates;
+  const brackit = await db.Brackit.findOne({
+      where: {
+          id: BrackitId
+      }
+  });
+  const question = brackit.name;
+  res.render('admin-candidate-setup', {BrackitId, numberCandidates, question});
+})
+
 module.exports = router;
