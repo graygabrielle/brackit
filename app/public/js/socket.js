@@ -54,11 +54,12 @@ $(document).ready(function () {
   const loadNewMatchup = function (roundData) {
     localRoundInfo = roundData;
     $("#insert").load(`/brackit/play/brack/${brackitId}/round/${roundData.currentRound}/matchup/${roundData.currentMatchup} #play`);
+    socket.emit("start matchup timer", roundData);
   }
 
   socket.on("load new round", roundData => {
     loadNewMatchup(roundData);
-    socket.emit("new round started", roundData);
+    //socket.emit("new round started", roundData);
   })
 
   socket.on("load new matchup", roundData => {
@@ -68,6 +69,11 @@ $(document).ready(function () {
   socket.on("local round over", roundData => {
     //render waiting screen
     //start to listen to global countdown/print global countdown
+  })
+
+  //TIMER FCNS
+  socket.on("matchup countdown", timeLeft => {
+    $(".timer").text(timeLeft);
   })
 
 
@@ -102,7 +108,10 @@ $(document).ready(function () {
   $(document).on("click", ".pick-cand", () => {
 
     // let currentRound = parseInt($("#round-num").attr("data-num"));
-    socket.emit("vote", userId, chosenCand, localRoundInfo);
+    
+    if (chosenCand) {
+      socket.emit("vote", userId, chosenCand, localRoundInfo);
+    }
   })
 
 ////////////

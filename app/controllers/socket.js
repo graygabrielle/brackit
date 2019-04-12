@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = function (io) {
-  // let socketId;
+  
   io.on("connection", socket => {
     let socketId = socket.id;
     console.log(`${socketId} connected to socket.`);
@@ -37,6 +37,7 @@ module.exports = function (io) {
       socket.emit("people in room", users);
     })
 
+
     const nextMatchup = function(roundData) {
       if (roundData.currentMatchup === roundData.totalMatchups) {
         if (roundData.currentRound === roundData.totalRounds) {
@@ -52,6 +53,33 @@ module.exports = function (io) {
         roundData.currentMatchup++;
         socket.emit("load new matchup", roundData);
       }
+
+    }
+
+    let matchupInterval;
+
+    socket.on("start matchup timer", roundData => {
+      //5 second timer
+      //
+      // if (matchupInterval) {
+      //   clearInterval(matchupInterval);
+      // }
+      let matchupTimeLeft = 5;
+      matchupInterval = setInterval(function() {
+        socket.emit("matchup countdown", --matchupTimeLeft)
+        if (matchupTimeLeft===0) {
+          clearInterval(matchupInterval);
+          nextMatchup(roundData);
+        }
+      }, 1000);
+      
+
+    })
+
+    const newRoundStarted = function(roundData) {
+        //master round timer
+      //emits master round countdown
+      //at end trigger results screen
 
     }
 
@@ -71,19 +99,15 @@ module.exports = function (io) {
         }
   
         io.in(roomId).emit("load new round", roundData);
+        newRoundStarted(roundData);
       } catch (err) {
         console.log(err)
-      }
-      
+      }      
     })
 
-    socket.on("new round started", roundData => {
-      //master round timer
-      //emits master round countdown
-      //at end trigger results screen
-    })
 
     socket.on("vote", async (userId, chosenCand, roundData) => {
+      clearInterval(matchupInterval)
       try {
         await db.Vote.create({
           UserId: userId,
@@ -94,25 +118,7 @@ module.exports = function (io) {
       } catch (err) {
         console.log(err);
       }
-    }
-    )
-
-    // socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
-    //   const candidates = await db.Matchup.findAll({
-    //     where: {
-    //       matchup: pairNumber,
-    //       roundNumber: currentRoundNumber
-    //     },
-    //     include: [db.Candidate]
-    //   });
-    //   socket.emit("send new pair", candidates);
-    // })
-
-    // socket.on("new round started", currentRound => {
-
-    // })
-
-    // //set timeout for emit to room
+    })
 
     socket.on("pair timer", (pairNumber, roundNumber, numberOfCandidates) => {
       const totalRounds = Math.log(numberOfCandidates, 2);
