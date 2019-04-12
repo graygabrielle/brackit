@@ -7,15 +7,8 @@ $(document).ready(function () {
   let brackitId = $(".brackit-info").attr("data-id");
   let chosenCand = null;
   let socket = io();
-  // let round = {
-  //   current: 1,
-  //   total: 2,
-  //   matchup: {
-  //     current: 1,
-  //     total: 2
-  //   }
-  // }
   let localRoundInfo;
+  let colorNum = 1;
 
   socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
@@ -25,18 +18,22 @@ $(document).ready(function () {
 
     users.forEach(function (elem) {
       let newName = $("<p>", {
+        "class": `cand-${colorNum}`,
         "data-id": `${elem.id}`
       }).text(elem.displayName);
       $(".participants").append(newName);
+      colorNum++;
     })
   })
 
   socket.on("new join", (joinerName, joinerId) => {
     console.log(`${joinerName} just joined!`);
     let newName = $("<p>", {
+      "class": `cand-${colorNum}`,
       "data-id": `${joinerId}`
     }).text(joinerName);
     $(".participants").append(newName);
+    colorNum++;
   });
 
   socket.on("user left", (name, id) => {
@@ -105,7 +102,9 @@ $(document).ready(function () {
     //render results page
     //for URL:
     //should be FINAL results
-    $("#insert").load(`/brackit/final-results #grab`);
+    // $("#insert").load(`/brackit/final-results #grab`);
+    $("#insert").load(`/brackit/results/brack/${brackitId}/round/${roundData.currentRound}/of/${roundData.totalRounds} #grab`);
+    
   })
 
 

@@ -47,7 +47,7 @@ $(document).ready(function() {
           const newCandidate = {
           BrackitId: BrackitId,
           name: candidates[i],
-          color: `cand-${i + 1}`
+          color: i+1
           };
           // Post the candidates
           $.post("/api/candidates", newCandidate)
