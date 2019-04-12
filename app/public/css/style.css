@@ -1,4 +1,3 @@
-
 /* ========= importing fonts from assets file and formatting for browser ========= */
 @font-face {
 	font-family: 'Montserrat Alternates';
@@ -65,6 +64,16 @@ body {
   color: #483C93;
 }
 
+.user-input::placeholder {
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: normal;
+
+  color: rgba(72, 60, 147, 0.557);
+}
+
 /* =================================================================*/
 /* =========================== COLORS ==============================*/
 /* =================================================================*/
@@ -109,36 +118,36 @@ body {
   background: #FEFF01;
 }
 
-/* .candidate-9 {
-  background: #97F849;
+.candidate-9 {
+  background: #006490;
 }
 
 .candidate-10 {
-  background: #97F849;
+  background: #e20042;
 }
 
 .candidate-11 {
-  background: #97F849;
+  background: #6dcff6;
 }
 
 .candidate-12 {
-  background: #97F849;
+  background: #f495bd;
 }
 .candidate-13 {
-  background: #97F849;
+  background: #ff6600;
 }
 
 .candidate-14 {
-  background: #97F849;
+  background: #0db1b3;
 }
 
 .candidate-15 {
-  background: #97F849;
+  background: #fcd425;
 }
 
 .candidate-16 {
-  background: #97F849;
-} */
+  background: #fe5552;
+}
 
 /* =================================================================*/
 /* ===================== POSITIONING & SHAPES ======================*/
@@ -157,7 +166,9 @@ body {
   width: 289px;
   height: 40px;
   left: 43px;
-  top: 203px;
+  top: 29vh;
+
+  color: #00A2D3;
 }
 
 .top-colors{
@@ -313,13 +324,15 @@ body {
 
 .body-pos-3-c {
   position: absolute;
-  left: 46px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 430px;
 }
 
 .radio-btn-3 {
   position: absolute;
-  left: 97px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 478px;
 }
 
@@ -338,16 +351,19 @@ body {
 
 .body-pos-4-a {
   position: absolute;
-  left: 44px;
-  top: 252px;
+  left: 50%;
+  top: 36vh;
+  text-align: center;
+  transform: translateX(-50%);
 }
 
 .add-btn-4 {
   position: absolute;
+  left: 64%;
+  /* transform: translateX(-50%); */
   width: 51px;
   height: 24px;
-  left: 276px;
-  top: 252px;
+  top:40vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
 }
@@ -356,98 +372,245 @@ body {
   position: absolute;
   width: 198px;
   height: 40px;
-  left: 99px;
-  top: 282px;
+  position: absolute;
+  left: 50%;
+  top: 45vh;
+  text-align: center;
+  transform: translateX(-50%);
 }
 
 .submit-btn-4 {
   position: absolute;
   width: 96px;
   height: 24px;
-  left: 254px;
-  top: 324px;
+  left: 66%;
+  top: 42vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
 }
 
-.cand-1-4 {
+.cand-1 {
+  text-align: center;
+  line-height: 24px;
   position: absolute;
-  width: 240px;
-  height: 24px;
-  left: -53px;
-  top: 383px;
-  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(-1.5deg);
-}
-
-.cand-2-4 {
-  position: absolute;
-  width: 240px;
-  height: 24px;
-  left: -60px;
-  top: 447px;
+  width: 200px;
+  left: -31px;
+  top: 62vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(4.28deg);
+
+  background: #FA4DA7;
+  color: #483C93;
 }
 
-.cand-3-4 {
+.cand-2 {
   position: absolute;
-  width: 240px;
-  height: 24px;
-  left: -71px;
-  top: 507px;
+  text-align: center;
+  line-height: 24px;
+  width: 200px;
+  left: -24px;
+  top: 74vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(0.2deg);
+  transform: rotate(-3.4deg);
+
+  background-color: #97F849;
+  color: #483C93
 }
 
-.cand-4-4 {
+.cand-3 {
   position: absolute;
-  width: 240px;
-  height: 24px;
-  left: -51px;
-  top: 556px;
-  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(1.5deg);
-}
-
-.cand-5-4 {
-  position: absolute;
-  width: 240px;
-  height: 24px;
-  left: 203px;
-  top: 406px;
-  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(5.56deg);
-}
-
-.cand-6-4 {
-  position: absolute;
-  width: 240px;
-  height: 24px;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
   left: 201px;
-  top: 457px;
+  top: 59vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(3.73deg);
+  transform: rotate(-0.72);
+
+  background: #FD7960;
+  color: #483C93
 }
 
-.cand-7-4 {
+.cand-4 {
   position: absolute;
-  width: 240px;
-  height: 24px;
-  left: 190px;
-  top: 500px;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: 208px;
+  top: 69vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(2.75deg);
+
+  background: #009F79;
+  color: #FF7062
 }
 
-.cand-8-4 {
+.cand-5 {
   position: absolute;
-  width: 240px;
-  height: 24px;
-  left: 208px;
-  top: 556px;
+  text-align: center;
+  line-height: 24px;
+  width: 200px;
+  left: -13px;
+  top: 53vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
-  transform: rotate(1.5deg);
+  transform: rotate(-1.5deg);
+
+  background: #2E3482;
+  color: #FF7062;
+}
+
+.cand-6 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: -19px;
+  top: 83vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(4.28deg);
+
+  background: #FFDB00;
+  color: #483C93
+}
+
+.cand-7 {
+  position: absolute;
+  text-align: center;
+  line-height: 24px;
+  width: 240px;
+  left: 201px;
+  top: 79vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(0.72deg);
+
+  background: #00CFD5;
+  color: #483C93
+}
+
+.cand-8 {
+  position: absolute;
+  text-align: center;
+  line-height: 24px;
+  width: 200px;
+  left: 202px;
+  top: 88vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(0.84deg);
+
+  background: #FEFF01;
+  color: #483C93
+}
+
+.cand-9 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: -20px;
+  top: 58vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.1deg);
+
+  background: #006490;
+  color: #FF7062;
+}
+
+.cand-10 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: -11px;
+  top: 68vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(0.2deg);
+
+  background: #e20042;
+  color: #483C93
+}
+
+.cand-11 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: -23px;
+  top: 79vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-1.32deg);
+
+  background: #6dcff6;
+  color: #483C93
+}
+
+.cand-12 {
+  position: absolute;
+  text-align: center;
+  line-height: 24px;
+  width: 200px;
+  left: -11px;
+  top: 90vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-2.79deg);
+
+  background: #f495bd;
+  color: #483C93
+}
+
+.cand-13 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: 204px;
+  top: 54vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-3.09deg);
+
+  background: #ff6600;
+  color: #483C93
+}
+
+.cand-14 {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  line-height: 24px;
+  left: 190px;
+  top: 64vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(3.73deg);
+
+  background: #0db1b3;
+  color: #483C93
+}
+
+.cand-15 {
+  position: absolute;
+  width: 200px;  
+  text-align: center;
+  line-height: 24px;
+  left: 220px;
+  top: 74vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-1.55deg);
+
+  background: #fcd425;
+  color: #483C93
+}
+
+.cand-16 {
+  position: absolute;
+  width: 200px;  
+  text-align: center;
+  line-height: 24px;
+  left: 217px;
+  top: 83vh;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-1.44deg);
+
+  background: #fe5552;
+  color: #483C93
 }
 
 /* ================ screen 5 positioning & shapes ================ */
