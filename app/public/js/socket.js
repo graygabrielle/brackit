@@ -5,15 +5,22 @@ $(document).ready(function () {
   console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
-  let roundNumber = 1;
-  let matchupNumber = 1;
   let chosenCand;
   let socket = io();
+  // let round = {
+  //   current: 1,
+  //   total: 2,
+  //   matchup: {
+  //     current: 1,
+  //     total: 2
+  //   }
+  // }
+  let localRoundInfo;
 
   socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
 
-  //functions 
+  //functions for waiting room
   socket.on("people in room", users => {
 
     users.forEach(function (elem) {
@@ -38,35 +45,35 @@ $(document).ready(function () {
     $(`[data-id="${id}"]`).remove();
   });
 
+  //start first round function
   $("#start").on("click", function () {
-    console.log("start button clicked");
     socket.emit("begin bracket");
   })
 
-  socket.on("load new round", currentRound => {
-    matchupNumber = 1;
-    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${roundNumber}/matchup/${matchupNumber} #play`);
-    socket.emit("new round started", currentRound);
-  })
 
-  socket.on("load new matchup", (currentRound, matchupNumber) => {
-    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${currentRound}/matchup/${matchupNumber} #play`);
-  })
-
-  const loadNewMatchup = () => {
-
+  const loadNewMatchup = function (roundData) {
+    localRoundInfo = roundData;
+    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${roundData.currentRound}/matchup/${roundData.currentMatchup} #play`);
   }
 
-  // socket.on("send new pair", candidates => {
-  //   let timeout = setTimeout(() => {
-  //     $(".cand1").text(candidates[0].Candidate.name);
-  //     $(".cand2").text(candidates[1].Candidate.name);
+  socket.on("load new round", roundData => {
+    loadNewMatchup(roundData);
+    socket.emit("new round started", roundData);
+  })
 
-  //   }, 10);
-  // })
+  socket.on("load new matchup", roundData => {
+    loadNewMatchup(roundData);
+  })
+
+  socket.on("local round over", roundData => {
+    //render waiting screen
+    //start to listen to global countdown/print global countdown
+  })
 
 
-  //brackit-matchup handlebars
+
+ //BRACKit-MATCHUP-HANDLEBARS-FUNCTIONS
+
   $(document).on("click", ".choice", function () {
     let otherCand;
 
@@ -94,10 +101,21 @@ $(document).ready(function () {
 
   $(document).on("click", ".pick-cand", () => {
 
-    // matchupNumber++;
-    socket.emit("vote", userId, chosenCand, roundNumber);
-    // $("#insert").load(`/brackit/play/brack/${brackitId}/round/${currentRound}/matchup/${matchupNumber} #play`);
+    // let currentRound = parseInt($("#round-num").attr("data-num"));
+    socket.emit("vote", userId, chosenCand, localRoundInfo);
   })
+
+////////////
+
+  // socket.on("send new pair", candidates => {
+  //   let timeout = setTimeout(() => {
+  //     $(".cand1").text(candidates[0].Candidate.name);
+  //     $(".cand2").text(candidates[1].Candidate.name);
+
+  //   }, 10);
+  // })
+
+
 
 
 

@@ -96,17 +96,17 @@ db.sequelize.sync({
             roundNumber: 1,
             matchup: 2
         }])
-        const votes = await db.Vote.bulkCreate([{
-                UserId: userId,
-                CandidateId: candidate[0].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[3].id,
-                roundNumber: 1
-            }
-        ])
+        // const votes = await db.Vote.bulkCreate([{
+        //         UserId: userId,
+        //         CandidateId: candidate[0].id,
+        //         roundNumber: 1
+        //     },
+        //     {
+        //         UserId: userId,
+        //         CandidateId: candidate[3].id,
+        //         roundNumber: 1
+        //     }
+        // ])
     }
 
     seed().then(() => {

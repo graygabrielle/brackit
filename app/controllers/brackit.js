@@ -6,8 +6,7 @@ router.get("/play/brack/:brackitId/round/:roundNumber/matchup/:matchupNumber", f
     const roundNumber = req.params.roundNumber;
     const matchupNumber = req.params.matchupNumber;
     const bracketId = req.params.brackitId;
-    db.sequelize.query(`SELECT matchup, roundNumber, brack.name "question", cand.name "candidateName", cand.id "candidateId", brack.id "brackitId" FROM Matchups mat INNER JOIN Candidates cand ON cand.id = mat.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE matchup=${matchupNumber} AND roundNumber=${roundNumber} AND brack.id=${bracketId};`, 
-    {
+    db.sequelize.query(`SELECT matchup, roundNumber, brack.name "question", cand.name "candidateName", cand.id "candidateId", brack.id "brackitId" FROM Matchups mat INNER JOIN Candidates cand ON cand.id = mat.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE matchup=${matchupNumber} AND roundNumber=${roundNumber} AND brack.id=${bracketId}`, {
         type: db.sequelize.QueryTypes.SELECT
     }).then((candidates, metadata) => {
         console.log(candidates);

@@ -1,13 +1,13 @@
 <div id="play">
 
-    <header>brack[<span id="round-num">{{candidates.0.roundNumber}}</span>]</header>
+    <header>brack[<span id="round-num" data-num="{{candidates.0.roundNumber}}">{{candidates.0.roundNumber}}</span>]</header>
 
     <section>
         <h5 class="question">{{candidates.0.question}}</h5>
         <h6 class="choice cand1" data-id="{{candidates.0.candidateId}}">{{candidates.0.candidateName}}</h6>
         <h6 class="choice cand2" data-id="{{candidates.1.candidateId}}">{{candidates.1.candidateName}}</h6>
         <button class="pick-cand">brack[it]!</button>
-        <p class="timer"></p>
+        <p class="timer">5</p>
     </section>
 
 

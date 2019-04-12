@@ -37,26 +37,82 @@ module.exports = function (io) {
       socket.emit("people in room", users);
     })
 
-    socket.on("begin bracket", () => {
-      io.in(roomId).emit("load new round", 1);
+    const nextMatchup = function(roundData) {
+      if (roundData.currentMatchup === roundData.totalMatchups) {
+        if (roundData.currentRound === roundData.totalRounds) {
+          //final screen
+
+        } else {
+          roundData.currentRound++;
+          roundData.currentMatchup = 1;
+          roundData.totalMatchups = roundData.totalMatchups/2;
+          socket.emit("local round over", roundData);
+        }
+      } else {
+        roundData.currentMatchup++;
+        socket.emit("load new matchup", roundData);
+      }
+
+    }
+
+    socket.on("begin bracket", async () => {
+      try{
+        const thisBrackit = await db.Brackit.findOne({
+          id: brackitId
+        });
+        const totalCandidates = thisBrackit.numberCandidates;
+        const currentRound = 1;
+        const totalRounds = Math.log(totalCandidates, 2);
+        const currentMatchup = 1;
+        const totalMatchups = totalCandidates / 2;
+  
+        const roundData = {
+          currentRound, totalRounds, currentMatchup, totalMatchups
+        }
+  
+        io.in(roomId).emit("load new round", roundData);
+      } catch (err) {
+        console.log(err)
+      }
+      
     })
 
-    socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
-      const candidates = await db.Matchup.findAll({
-        where: {
-          matchup: pairNumber,
-          roundNumber: currentRoundNumber
-        },
-        include: [db.Candidate]
-      });
-      socket.emit("send new pair", candidates);
+    socket.on("new round started", roundData => {
+      //master round timer
+      //emits master round countdown
+      //at end trigger results screen
     })
 
-    socket.on("new round started", currentRound => {
+    socket.on("vote", async (userId, chosenCand, roundData) => {
+      try {
+        await db.Vote.create({
+          UserId: userId,
+          CandidateId: chosenCand,
+          roundNumber: roundData.currentRound
+        })
+        nextMatchup(roundData);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    )
 
-    })
+    // socket.on("get new pair", async (pairNumber, currentRoundNumber) => {
+    //   const candidates = await db.Matchup.findAll({
+    //     where: {
+    //       matchup: pairNumber,
+    //       roundNumber: currentRoundNumber
+    //     },
+    //     include: [db.Candidate]
+    //   });
+    //   socket.emit("send new pair", candidates);
+    // })
 
-    //set timeout for emit to room
+    // socket.on("new round started", currentRound => {
+
+    // })
+
+    // //set timeout for emit to room
 
     socket.on("pair timer", (pairNumber, roundNumber, numberOfCandidates) => {
       const totalRounds = Math.log(numberOfCandidates, 2);
@@ -69,7 +125,7 @@ module.exports = function (io) {
         if (timeLeft > 1) {
           socket.emit("pair countdown", --timeLeft);
 
-        } else if (timeLeft = 1) {
+        } else if (timeLeft === 1) {
           socket.emit("pair countdown", --timeLeft);
 
           if (pairNumber < totalPairs) {
@@ -133,15 +189,18 @@ module.exports = function (io) {
 
     socket.on("disconnect", async () => {
       console.log(`${userName} at socket ${socketId} has disconnected.`);
-      await db.User.update({
+      try {
+        await db.User.update({
         isConnected: false
       }, {
         where: {
           id: userId
         }
       });
-
       io.in(roomId).emit("user left", userName, userId);
+    } catch (error) {
+      console.log(error);
+    }
     });
   });
 };
