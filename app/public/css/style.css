@@ -28,7 +28,6 @@
 body {
   font-family: 'Montserrat Alternates', 'Roboto', sans-serif;
   width: 100vw;
-
   
 }
 
@@ -56,6 +55,17 @@ body {
 
 }
 
+.coral-text {
+  color: #FF7062;
+  font-weight: 400;
+}
+
+.blue-text {
+  color: #00A2D3;
+  font-weight: 400;
+}
+
+
 .user-input {
   font-family: Montserrat Alternates;
   font-style: normal;
@@ -80,6 +90,7 @@ body {
 /* =================================================================*/
 /* =========================== COLORS ==============================*/
 /* =================================================================*/
+
 
 .brackit-coral {
   background: #FF7062;
@@ -170,7 +181,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
   top: 30vh;
- 
   color: #00A2D3;
  }
 
@@ -302,7 +312,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 229px;
+  top: 34vh;
 }
 
 .form-input {
@@ -319,35 +329,35 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 264px;
+  top: 39vh;
 }
 
 .body-pos-3-b {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 331px;
+  top: 50vh;
 }
 
 .form-input-3-b {  
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 365px;
+  top: 55vh;
 }
 
 .body-pos-3-c {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 430px;
+  top: 66vh;
 }
 
 .radio-btn-3 {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 478px;
+  top: 72vh;
 }
 
 .radio {
@@ -360,7 +370,7 @@ body {
   height: 24px;
   left: 50%;
   transform: translateX(-50%);
-  top: 553px;
+  top: 83vh;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25), 0px 3px 4px rgba(0, 0, 0, 0.25);
   transform: rotate(-2.1deg);
 }
@@ -631,7 +641,49 @@ body {
   color: #483C93
 }
 
+/*============================codes screen (5)===============================================*/
+.body-pos-5 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  top: 38vh;
+  text-align: center;
+}
 
+.admin-pos-5 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  top: 56vh;
+  text-align: center;
+}
+
+.participant-pos-5 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  top: 62vh;
+  text-align: center;
+}
+
+.directions-pos-5 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  top: 72vh;
+  text-align: center;
+}
+
+.link-pos-5 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  top: 76vh;
 
 /* ================ screen WAITING ROOM positioning & shapes ================ */
 
