@@ -1,17 +1,27 @@
 $(document).ready(function () {
 
   const name = $(".data-source").attr("data-name");
-  const newUserId = $(".data-source").attr("data-id");
-  console.log(`Name is ${name} and id is ${newUserId}`);
+  const userId = $(".data-source").attr("data-id");
+  console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
+  let chosenCand;
   let socket = io();
+  // let round = {
+  //   current: 1,
+  //   total: 2,
+  //   matchup: {
+  //     current: 1,
+  //     total: 2
+  //   }
+  // }
+  let localRoundInfo;
 
-  socket.emit("join room", brackitId, name, newUserId);
+  socket.emit("join room", brackitId, name, userId);
   socket.emit("who's in room");
 
+  //functions for waiting room
   socket.on("people in room", users => {
-    console.log(users);
 
     users.forEach(function (elem) {
       let newName = $("<p>", {
@@ -35,28 +45,119 @@ $(document).ready(function () {
     $(`[data-id="${id}"]`).remove();
   });
 
+  //start first round function
   $("#start").on("click", function () {
-    console.log("start button clicked");
     socket.emit("begin bracket");
   })
 
-  socket.on("load new round", currentRound => {
-    $("body").load("/brackit/play #play");
-    socket.emit("new round started", currentRound);
-    socket.emit("get new pair", 1, 1);
+
+  const loadNewMatchup = function (roundData) {
+    localRoundInfo = roundData;
+    $("#insert").load(`/brackit/play/brack/${brackitId}/round/${roundData.currentRound}/matchup/${roundData.currentMatchup} #play`);
+    socket.emit("start matchup timer", roundData);
+  }
+
+  socket.on("load new round", roundData => {
+    loadNewMatchup(roundData);
+    //socket.emit("new round started", roundData);
   })
 
-  socket.on("send new pair", candidates => {
-    let timeout = setTimeout(() => {
-      $(".cand1").text(candidates[0].Candidate.name);
-      $(".cand2").text(candidates[1].Candidate.name);
+  socket.on("load new matchup", roundData => {
+    loadNewMatchup(roundData);
+  })
 
-    }, 10);
+  socket.on("local round over", roundData => {
+    //render waiting screen
+    //start to listen to global countdown/print global countdown
+    socket.on("master round countdown", timeLeft =>{
+
+    })
+
+  })
+
+  socket.on("final local round over", roundData => {
+    //render waiting screen
+    //start to listen to global countdown/print global countdown
+    socket.on("master round countdown", timeLeft =>{
+
+    })
+
+  })
+
+  //TIMER FCNS
+  socket.on("matchup countdown", timeLeft => {
+    $(".timer").text(timeLeft);
+  })
+
+  socket.on("get results", roundData => {
+    //render results page
+    //for URL:
+    let total = roundData.totalRounds;
+    let current = roundData.currentRound;
+  })
+
+  socket.on("final results", roundData => {
+    //render results page
+    //for URL:
+    let total = roundData.totalRounds;
+    let current = roundData.currentRound;
+  })
+
+  socket.on("result page countdown", roundData => {
+    //print countdown to page
+  })
+
+  
+
+
+ //BRACKit-MATCHUP-HANDLEBARS-FUNCTIONS
+
+  $(document).on("click", ".choice", function () {
+    let otherCand;
+
+    if ($(this).hasClass("cand1")) {
+      otherCand = ".cand2";
+    } else {
+      otherCand = ".cand1";
+    }
+
+    if ($(this).hasClass("inactive")) {
+
+      $(this).removeClass("inactive");
+      $(otherCand).removeClass("active");
+
+    } else if ($(this).hasClass("active")) {
+      return;
+    }
+
+    $(this).addClass("active");
+    $(otherCand).addClass("inactive");
+
+    chosenCand = $(this).attr("data-id");
+    console.timeLog(chosenCand);
   })
 
   $(document).on("click", ".pick-cand", () => {
-    socket.emit("get new pair", 2, 1);
+
+    // let currentRound = parseInt($("#round-num").attr("data-num"));
+    
+    if (chosenCand) {
+      socket.emit("vote", userId, chosenCand, localRoundInfo);
+    }
   })
+
+////////////
+
+  // socket.on("send new pair", candidates => {
+  //   let timeout = setTimeout(() => {
+  //     $(".cand1").text(candidates[0].Candidate.name);
+  //     $(".cand2").text(candidates[1].Candidate.name);
+
+  //   }, 10);
+  // })
+
+
+
 
 
   // let timeInRound;

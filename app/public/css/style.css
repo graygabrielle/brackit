@@ -462,5 +462,13 @@ body {
 }
 
 .invisible {
-  display: none;
+    display: none;
+}
+
+.active {
+    color: red;
+}
+
+.inactive {
+    color: blue;
 }

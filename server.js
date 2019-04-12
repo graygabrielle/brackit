@@ -37,7 +37,6 @@ require("./app/controllers/socket.js")(io);
 db.sequelize.sync({
     force: true
 }).then(function () {
-
     //seeds
     const seed = async function () {
         const admin = await db.Admin.create({
@@ -56,22 +55,26 @@ db.sequelize.sync({
             BrackitId: bracketId,
             displayName: adminName,
             isAdmin: true
-          });
- 
+        });
+
         const userId = user.id;
- 
+
         const candidate = await db.Candidate.bulkCreate([{
             BrackitId: bracketId,
-            name: "option 1"
+            name: "option 1",
+            color: "purple"
         }, {
             BrackitId: bracketId,
-            name: "option 2"
+            name: "option 2",
+            color: "white"
         }, {
             BrackitId: bracketId,
-            name: "option 3"
+            name: "option 3",
+            color: "hello"
         }, {
             BrackitId: bracketId,
-            name: "option 4"
+            name: "option 4",
+            color: "red"
         }]);
  
         await db.Matchup.bulkCreate([{
@@ -91,56 +94,72 @@ db.sequelize.sync({
             roundNumber: 1,
             matchup: 2
         }])
-        await db.Vote.bulkCreate([
-            {
-                UserId: userId,
-                CandidateId: candidate[0].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[3].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[3].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[2].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[1].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[1].id,
-                roundNumber: 1
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[1].id,
-                roundNumber: 2
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[3].id,
-                roundNumber: 2
-            },
-            {
-                UserId: userId,
-                CandidateId: candidate[3].id,
-                roundNumber: 2
-            }
-        ])
+
+        // const votes = await db.Vote.bulkCreate([{
+        //         UserId: userId,
+        //         CandidateId: candidate[0].id,
+        //         roundNumber: 1
+        //     },
+        //     {
+        //         UserId: userId,
+        //         CandidateId: candidate[3].id,
+        //         roundNumber: 1
+        //     }
+        // ])
+      
+//               await db.Vote.bulkCreate([
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[0].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[2].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 1
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[1].id,
+//                 roundNumber: 2
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 2
+//             },
+//             {
+//                 UserId: userId,
+//                 CandidateId: candidate[3].id,
+//                 roundNumber: 2
+//             }
+//         ])
     }
+
+
  
     seed();
+
 
     http.listen(PORT, function () {
         console.log(`App listening on http://localhost:${PORT}`)
