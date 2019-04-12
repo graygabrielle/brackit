@@ -65,6 +65,16 @@ body {
   color: #483C93;
 }
 
+.user-input::placeholder {
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: normal;
+
+  color: rgba(72, 60, 147, 0.557);
+}
+
 /* =================================================================*/
 /* =========================== COLORS ==============================*/
 /* =================================================================*/
@@ -313,13 +323,15 @@ body {
 
 .body-pos-3-c {
   position: absolute;
-  left: 46px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 430px;
 }
 
 .radio-btn-3 {
   position: absolute;
-  left: 97px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 478px;
 }
 
