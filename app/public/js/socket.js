@@ -5,7 +5,7 @@ $(document).ready(function () {
   console.log(`Name is ${name} and id is ${userId}`);
 
   let brackitId = $(".brackit-info").attr("data-id");
-  let chosenCand;
+  let chosenCand = null;
   let socket = io();
   // let round = {
   //   current: 1,
@@ -148,6 +148,7 @@ $(document).ready(function () {
     
     if (chosenCand) {
       socket.emit("vote", userId, chosenCand, localRoundInfo);
+      chosenCand = null;
     }
   })
 
