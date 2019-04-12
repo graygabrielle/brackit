@@ -44,7 +44,7 @@ $(document).ready(function () {
   });
 
   //start first round function
-  $("#start").on("click", function () {
+  $(document).on("click", "#start", function () {
     socket.emit("begin bracket");
   })
 

@@ -12,7 +12,7 @@ module.exports = function (io) {
     let matchupInterval;
     let roundInterval;
 
-    socket.on("join room", async (bracketId, name, incomingUserId) => {
+    socket.on("join room", (bracketId, name, incomingUserId) => {
       brackitId = bracketId;
       console.log(brackitId);
       roomId = `bracket ${brackitId}`;
@@ -21,13 +21,15 @@ module.exports = function (io) {
       socket.join(roomId);
       console.log(`${userName} joined socket : ${roomId}`);
       socket.broadcast.to(roomId).emit("new join", userName, userId);
-      await db.User.update({
+      db.User.update({
         isConnected: true
       }, {
         where: {
           id: userId
         }
-      });
+      }).then(function (res) {
+
+      })
     })
 
     socket.on("who's in room", async () => {
@@ -118,6 +120,7 @@ module.exports = function (io) {
     }
 
     socket.on("begin bracket", async () => {
+      console.log("helllo");
       try {
         const thisBrackit = await db.Brackit.findOne({
           where: {
