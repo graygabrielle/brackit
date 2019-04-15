@@ -3,5 +3,7 @@
 <header>brack[results]</header>
 
 <h1 class="color-{{color}} winner">{{name}} is the winner!</h1>
-
+{{#each loser}}
+<p class="color-{{this.color}} loser">{{this.name}}</p>
+{{/each}}
 </div>

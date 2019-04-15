@@ -34,9 +34,7 @@ app.use(routes);
 require("./app/controllers/socket.js")(io);
 
 //syncs with sequelize/database and runs server
-db.sequelize.sync({
-    force: true
-}).then(function () {
+db.sequelize.sync().then(function () {
     //seeds
     const seed = async function () {
         const admin = await db.Admin.create({

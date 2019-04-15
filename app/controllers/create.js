@@ -6,8 +6,7 @@ router.get("/new-brackit", function(req, res) {
 })
 
 router.get("/add-candidates/:BrackitId/:numberCandidates", async function(req, res) {
-    const BrackitId = req.params.BrackitId;
-    const numberCandidates = req.params.numberCandidates;
+    const {BrackitId, numberCandidates} = req.params;
     const brackit = await db.Brackit.findOne({
         where: {
             id: BrackitId

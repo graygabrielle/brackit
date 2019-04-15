@@ -135,14 +135,19 @@ router.get("/results/brack/:brackitId/round/:roundNumber/of/:numRounds", functio
       } else {
         console.log("display final results");
         console.log(roundWinners[0]);
-        db.Candidate.findOne({
-          where: {
-            id: roundWinners[0]
-          }
-        }).then(function (response, metadata) {
-          console.log(response);
+        db.sequelize.query(`SELECT * FROM CANDIDATES WHERE BrackitId=${req.params.brackitId} AND id=${roundWinners[0]}`, {
+          type: db.sequelize.QueryTypes.SELECT
+        }).then(function (finalWinner, metadata) {
+          console.log(finalWinner);
+          const winner = finalWinner;
+          db.sequelize.query(`SELECT * FROM CANDIDATES WHERE BrackitId=${req.params.brackitId} AND id!=${roundWinners[0]}`, {
+            type: db.sequelize.QueryTypes.SELECT
+          }).then(function (loser, meta) {
+            res.render('brackit-final-results', {winner, loser});
+          })
+          
 
-          res.render('brackit-final-results', response.dataValues);
+          
 
         })
 
