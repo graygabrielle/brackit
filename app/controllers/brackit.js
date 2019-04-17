@@ -57,24 +57,32 @@ router.get("/results/brack/:brackitId/round/:roundNumber/of/:numRounds", functio
     return which;
   };
 
-  function voteCounter(numRounds, roundNumber, brackitId) {
+  async function voteCounter(numRounds, roundNumber, brackitId) {
 
+    const roundsRemaining = numRounds - roundNumber;
+    const numMatchups = 2 ** roundsRemaining;
+    console.log("numMatchups:", numMatchups);
+
+    const candidateVotes = [];
+    const roundWinners = [];
+
+    for (let i = 1; i <= numMatchups; i++) {
+      candidateVotes.push([]);
+    }
+
+    await db.sequelize.query(`SELECT * FROM Matchups mat INNER JOIN Candidates cand ON mat.CandidateId = cand.id WHERE cand.BrackitId=${brackitId} AND mat.roundNumber=${roundNumber}`, {
+      type: db.sequelize.QueryTypes.SELECT
+    }).then(function (matchups, metadata) {
+      console.log("This round's matchups:", matchups);
+      for (let i = 0; i < matchups.length; i++) {
+        candidateVotes[matchups[i].matchup - 1].push(matchups[i].CandidateId);
+      }
+    });
 
     db.sequelize.query(`SELECT color, matchup, vot.roundNumber, brack.name 'question', cand.name 'candidateName', cand.id 'candidateId', brack.id 'brackitId' FROM Votes vot INNER JOIN Matchups mat ON mat.roundNumber = vot.roundNumber AND mat.CandidateId = vot.CandidateId INNER JOIN Candidates cand ON cand.id = vot.CandidateId INNER JOIN Brackits brack on brack.id = cand.BrackitId WHERE brack.id=${brackitId} AND vot.roundNumber=${roundNumber}`, {
       type: db.sequelize.QueryTypes.SELECT
     }).then(function (votes, metadata) {
-      console.log(votes);
-
-      const roundsRemaining = numRounds - roundNumber;
-      const numMatchups = 2 ** roundsRemaining;
-      console.log("numMatchups:", numMatchups);
-
-      const candidateVotes = [];
-      const roundWinners = [];
-
-      for (let i = 1; i <= numMatchups; i++) {
-        candidateVotes.push([]);
-      }
+      console.log("Votes:", votes);
 
       for (let i = 0; i < votes.length; i++) {
         candidateVotes[votes[i].matchup - 1].push(votes[i].candidateId);
